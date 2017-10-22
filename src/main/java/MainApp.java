@@ -4,13 +4,6 @@ import java.util.Scanner;
 public class MainApp {
     public static void main(String[] args) {
         // read input
-        System.setIn(new ByteArrayInputStream(("" +
-                "4 \n " +
-                "0 1 2 3 \n " +
-                "1 0 1 2 \n" +
-                "2 1 0 1 \n" +
-                "3 2 1 0 \n"
-        ).getBytes()));
         Scanner s = new Scanner(System.in);
         int n = s.nextInt();
         System.out.println("n: " + n);
