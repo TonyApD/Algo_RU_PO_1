@@ -27,7 +27,9 @@ public class MainAppTest {
                 "2 1 0 1\n" +
                 "3 2 1 0\n"
         ).getBytes()));
+
         app.main(null);
+
         assertEquals("" +
                 "1 2 1\n" +
                 "3 2 1\n" +
@@ -44,7 +46,9 @@ public class MainAppTest {
                 "3 0 4\n" +
                 "5 4 0\n"
         ).getBytes()));
+
         app.main(null);
+
         assertEquals("" +
                         "1 2 3\n" +
                         "1 3 5\n" +
