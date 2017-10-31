@@ -96,10 +96,10 @@ public class FloydWarshallAllPairShortestPath {
 
     public static void main(String args[]){
         int[][] graph = {
-                {0,   3,   6,   15},
-                {INF, 0,  -2,   INF},
-                {INF, INF, 0,   2},
-                {1,   INF, INF, 0}
+                {0, 1, 2, 3},
+                {1, 0, 1, 2},
+                {2, 1, 0, 1},
+                {3, 2, 1, 0}
         };
 
         FloydWarshallAllPairShortestPath shortestPath = new FloydWarshallAllPairShortestPath();
