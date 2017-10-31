@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 
 public class Kruskal {
-    private int nodeCount;    //how many nodes. NODE COUNT MUST BE ENTERED MANUALLY. No error handling between nodeCount and graphEdges
-    private ArrayList<Edge> graphEdges;        //edge list, not adjacency list
+    private static int nodeCount;    //how many nodes. NODE COUNT MUST BE ENTERED MANUALLY. No error handling between nodeCount and graphEdges
+    private static ArrayList<Edge> graphEdges;        //edge list, not adjacency list
 
     public static void main(String[] args) {
         // IN PROGRESS LOGIC FOR THE SCANNER
@@ -18,41 +18,51 @@ public class Kruskal {
         System.out.println("Enter the number of vertices");
         numberofvertices = scan.nextInt();
 
-        adjacency_matrix = new int[numberofvertices + 1][numberofvertices + 1];
+        adjacency_matrix = new int[numberofvertices][numberofvertices];
         System.out.println("Enter the Weighted Matrix for the graph");
-        for (int source = 1; source <= numberofvertices; source++)
-        {
-            for (int destination = 1; destination <= numberofvertices; destination++)
-            {
-                adjacency_matrix[source][destination] = scan.nextInt();
-                if (source == destination)
-                {
-                    adjacency_matrix[source][destination] = 0;
-                    continue;
-                }
-                if (adjacency_matrix[source][destination] == 0)
-                {
-                    adjacency_matrix[source][destination] = 9999999;
-                }
+//        for (int source = 1; source <= numberofvertices; source++) {
+//            for (int destination = 1; destination <= numberofvertices; destination++) {
+//                adjacency_matrix[source][destination] = scan.nextInt();
+//                if (source == destination) {
+//                    adjacency_matrix[source][destination] = 0;
+//                    continue;
+//                }
+//                if (adjacency_matrix[source][destination] == 0) {
+//                    adjacency_matrix[source][destination] = 9999999;
+//                }
+//            }
+//        }
+        graphEdges = new ArrayList<Edge>();
+        for (int i = 0; i < numberofvertices; i++) {
+            for (int j = 0; j < numberofvertices; j++) {
+                adjacency_matrix[i][j] = scan.nextInt();
             }
         }
+
+        for (int i = 0; i < numberofvertices; i++) {
+            for (int j = i + 1; j < numberofvertices; j++) {
+                graphEdges.add(new Edge(i, j, adjacency_matrix[i][j]));
+            }
+        }
+
+        nodeCount = numberofvertices;
         // EXECUTE THE LOGIC BELOW:
-        System.out.println(Arrays.deepToString(adjacency_matrix));
+        // System.out.println(Arrays.deepToString(adjacency_matrix));
         Kruskal graph = new Kruskal();
         graph.kruskalMST(adjacency_matrix);                //run Kruskal's algorithm to find a MST
     }
 
-    public Kruskal() {
-        graphEdges = new ArrayList<Edge>();
-        graphEdges.add(new Edge(1, 2, 1));        //dummy edge to ignore 0th position in ArrayList
-        graphEdges.add(new Edge(1, 3, 2));
-        graphEdges.add(new Edge(1, 4, 3));
-        graphEdges.add(new Edge(2, 4, 2));
-        graphEdges.add(new Edge(2, 3, 1));
-        graphEdges.add(new Edge(3, 4, 1));
-
-        nodeCount = 4;        //CAREFUL: nodeCount must be correct. No error checking between nodeCount & graphEdges to see how many nodes actually exist
-    }
+//    public Kruskal() {
+//        graphEdges = new ArrayList<Edge>();
+//        graphEdges.add(new Edge(1, 2, 1));        //dummy edge to ignore 0th position in ArrayList
+//        graphEdges.add(new Edge(1, 3, 2));
+//        graphEdges.add(new Edge(1, 4, 3));
+//        graphEdges.add(new Edge(2, 4, 2));
+//        graphEdges.add(new Edge(2, 3, 1));
+//        graphEdges.add(new Edge(3, 4, 1));
+//
+//        nodeCount = 4;        //CAREFUL: nodeCount must be correct. No error checking between nodeCount & graphEdges to see how many nodes actually exist
+//    }
 
     public void kruskalMST(int[][] adj_matrix) {
         String outputMessage = "";    //hold output for the user to know algorithm's progress
