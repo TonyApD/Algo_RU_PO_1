@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class GraphBuilder {
 
-    public static List<Edge> execute(String input) throws FileNotFoundException {
+    public static List<Edge> execute(String input, boolean print) throws FileNotFoundException {
         int adjacency_matrix[][];
         int numberofvertices;
         int nodeCount;    //how many nodes. NODE COUNT MUST BE ENTERED MANUALLY. No error handling between nodeCount and graphEdges
@@ -42,6 +42,6 @@ public class GraphBuilder {
 
         nodeCount = numberofvertices;
         Kruskal graph = new Kruskal(nodeCount, graphEdges);
-        return graph.kruskalMST();
+        return graph.kruskalMST(print);
     }
 }
