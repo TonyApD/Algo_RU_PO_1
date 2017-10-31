@@ -41,7 +41,7 @@ public class Kruskal {
 
         for (int i = 0; i < numberofvertices; i++) {
             for (int j = i + 1; j < numberofvertices; j++) {
-                graphEdges.add(new Edge(i, j, adjacency_matrix[i][j]));
+                graphEdges.add(new Edge(i + 1, j + 1, adjacency_matrix[i][j]));
             }
         }
 
@@ -66,6 +66,7 @@ public class Kruskal {
 
     public void kruskalMST(int[][] adj_matrix) {
         String outputMessage = "";    //hold output for the user to know algorithm's progress
+        ArrayList<Edge> possibleEdges = new ArrayList<>();
 
         Collections.sort(graphEdges);        //sort edges with smallest weight 1st
         // IN PROGRESS:
@@ -85,13 +86,22 @@ public class Kruskal {
                     mstEdges.add(currentEdge);        //add the edge to the graph
                     nodeSet.union(root1, root2);    //merge the sets
                     unionMessage = ",\tUnion(" + root1 + ", " + root2 + ") done\n";        //change what's printed if a union IS performed
+                } else if (currentEdge.getWeight() <= 4) {
+                    possibleEdges.add(currentEdge);
                 }
+
                 outputMessage += unionMessage;
             } else if (mstEdges.size() == nodeCount - 1) {
-                mstEdges.add(currentEdge);        //add the edge to the graph
-                //nodeSet.union(root1, root2);    //merge the sets
-                unionMessage = ",\tUnion(" + root1 + ", " + root2 + ") done\n";        //change what's printed if a union IS performed
-                outputMessage += unionMessage;
+                if (!possibleEdges.isEmpty()) {
+                    mstEdges.add(possibleEdges.get(0));        //add the edge to the graph
+                    nodeSet.union(possibleEdges.get(0).getVertex1(), possibleEdges.get(0).getVertex2());    //merge the sets
+                    outputMessage += ",\tUnion(" + root1 + ", " + root2 + ") done\n";
+                } else {
+                    mstEdges.add(currentEdge);        //add the edge to the graph
+                    //nodeSet.union(root1, root2);    //merge the sets
+                    unionMessage = ",\tUnion(" + root1 + ", " + root2 + ") done\n";        //change what's printed if a union IS performed
+                    outputMessage += unionMessage;
+                }
             }
         }
 
