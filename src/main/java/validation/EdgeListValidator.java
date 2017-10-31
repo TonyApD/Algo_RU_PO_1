@@ -22,7 +22,7 @@ public class EdgeListValidator {
                 int a2 = a.getVertex2();
                 int aweight = a.getWeight();
                 if ((e1 == a1 && e2 == a2 && eweight == aweight) || (e1 == a2 && e2 == a1 && eweight == aweight)) {
-                    System.out.println("Match at " + e1 + " " + e2 + " " + eweight);
+                    //System.out.println("Match at " + e1 + " " + e2 + " " + eweight);
                     expectedCopy.remove(e);
                     actualCopy.remove(a);
                 }
