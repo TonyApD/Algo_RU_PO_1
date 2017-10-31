@@ -16,11 +16,6 @@ public class GraphBuilder {
         int numberofvertices;
         int nodeCount;    //how many nodes. NODE COUNT MUST BE ENTERED MANUALLY. No error handling between nodeCount and graphEdges
         ArrayList<Edge> graphEdges;        //edge list, not adjacency list
-        char firstChar = input.charAt(FileUtil.fileFolderPrefix.length()); //char 5 because of the data/ prefix of 5 characters
-        int nodeIncrement = 0;
-        if (firstChar == 'a' || firstChar == 'n') {
-            nodeIncrement = 1;
-        }
 
         Scanner scan = new Scanner(new FileReader(input));
         numberofvertices = scan.nextInt();
@@ -36,7 +31,7 @@ public class GraphBuilder {
 
         for (int i = 0; i < numberofvertices; i++) {
             for (int j = i + 1; j < numberofvertices; j++) {
-                graphEdges.add(new Edge(i + nodeIncrement, j + nodeIncrement, adjacency_matrix[i][j]));
+                graphEdges.add(new Edge(i + 1, j + 1, adjacency_matrix[i][j]));
             }
         }
 
