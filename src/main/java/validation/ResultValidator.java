@@ -17,7 +17,7 @@ public class ResultValidator {
     public static void main(String[] args) {
 
         try {
-            System.out.println("Correct reslut: " + EdgeListValidator.validate(getExpectedResults(args[0]), getActualResults(args[0])));
+            System.out.println("Correct result: " + EdgeListValidator.validate(getExpectedResults(args[0]), getActualResults(args[0])));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
