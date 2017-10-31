@@ -1,40 +1,38 @@
-import org.junit.Before;
-import org.junit.Test;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static org.junit.Assert.assertEquals;
-
-public class MainAppTest {
-
-//    MainApp app;
+//import org.junit.Before;
+//import org.junit.Test;
+//import validation.ResultValidator;
+//
+//import java.io.ByteArrayInputStream;
+//import java.io.ByteArrayOutputStream;
+//import java.io.PrintStream;
+//
+//import static org.junit.Assert.assertEquals;
+//
+//public class MainAppTest {
+//
+//    ResultValidator app;
 //    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 //
 //    @Before
 //    public void setUp() {
 //        System.setOut(new PrintStream(outContent));
-//        app = new MainApp();
+//        app = new ResultValidator();
 //    }
 //
 //    @Test
 //    public void testCaseUserInputExample1() {
-//        System.setIn(new ByteArrayInputStream(("" +
-//                "4 \n " +
-//                "0 1 2 3\n " +
-//                "1 0 1 2\n" +
-//                "2 1 0 1\n" +
-//                "3 2 1 0\n"
+//        System.setIn(new ByteArrayInputStream((
+//                "1 2 3\n" +
+//                "1 3 5\n" +
+//                "2 3 4"
 //        ).getBytes()));
 //
 //        app.main(null);
 //
 //        assertEquals("" +
-//                "1 2 1\n" +
-//                "3 2 1\n" +
-//                "1 3 2\n" +
-//                "3 4 1",
+//                "1 2 3\n" +
+//                        "1 3 5\n" +
+//                        "2 3 4\n",
 //                outContent.toString());
 //    }
 //
@@ -55,5 +53,5 @@ public class MainAppTest {
 //                        "2 3 4",
 //                outContent.toString());
 //    }
-
-}
+//
+//}

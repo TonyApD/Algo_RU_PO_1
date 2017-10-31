@@ -11,7 +11,7 @@ public class Kruskal {
         this.graphEdges = graphEdges;
     }
 
-    public void kruskalMST() {
+    public List<Edge> kruskalMST() {
         boolean isFirstEdge = true;
         int lowestWeigth = 0;
         String outputMessage = "";    //hold output for the user to know algorithm's progress
@@ -66,5 +66,7 @@ public class Kruskal {
         }
         outputMessage += "\nTotal weight of all edges in MST: " + mstTotalEdgeWeight;
         System.out.println(outputMessage);
+
+        return mstEdges;
     }
 }
