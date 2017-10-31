@@ -1,19 +1,16 @@
 import Kruskal.Edge;
 import Kruskal.Kruskal;
+import Utils.Stopwatch;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainApp {
     public static void main(String[] args) {
-        System.out.println("------- Starting calculations -------");
-        long startTime = System.currentTimeMillis();
-
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.start();
         executeKruskal();
-
-        long endTime = System.currentTimeMillis();
-        System.out.println("---------------- Done ----------------");
-        System.out.println("Operation took: " + (endTime - startTime) + " milliseconds");
+        stopwatch.stop();
     }
 
     private static void executeKruskal() {
