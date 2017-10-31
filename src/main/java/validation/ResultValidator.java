@@ -2,6 +2,7 @@ package validation;
 
 import Kruskal.Edge;
 import Kruskal.Kruskal;
+import Utils.FileUtil;
 import Utils.GraphBuilder;
 
 import java.io.FileNotFoundException;
@@ -30,11 +31,11 @@ public class ResultValidator {
     }
 
     private static List<Edge> getActualResults(String fileName) throws FileNotFoundException {
-        return GraphBuilder.execute("data/" + fileName + ".in");
+        return GraphBuilder.execute(FileUtil.fileFolderPrefix + fileName + ".in");
     }
 
     private static List<Edge> getExpectedResults(String fileName) throws FileNotFoundException {
-        Scanner scan = new Scanner(new FileReader("data/" + fileName + ".ans"));
+        Scanner scan = new Scanner(new FileReader(FileUtil.fileFolderPrefix + fileName + ".ans"));
         while (scan.hasNext()) {
             validEdges.add(new Edge(scan.nextInt(), scan.nextInt(), scan.nextInt()));
         }

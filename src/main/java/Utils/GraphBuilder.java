@@ -16,7 +16,7 @@ public class GraphBuilder {
         int numberofvertices;
         int nodeCount;    //how many nodes. NODE COUNT MUST BE ENTERED MANUALLY. No error handling between nodeCount and graphEdges
         ArrayList<Edge> graphEdges;        //edge list, not adjacency list
-        char firstChar = input.charAt(5); //char 5 because of the data/ prefix of 5 characters
+        char firstChar = input.charAt(FileUtil.fileFolderPrefix.length()); //char 5 because of the data/ prefix of 5 characters
         int nodeIncrement = 0;
         if (firstChar == 'a' || firstChar == 'n') {
             nodeIncrement = 1;
