@@ -28,14 +28,19 @@ public class EdgeListValidator {
                 }
             }
         }
-        if (!expectedCopy.isEmpty()) {
+        if (!expectedCopy.isEmpty() || !actualCopy.isEmpty()) {
+            Edge ex = null;
+            Edge ac = null;
             for (Edge e : expectedCopy) {
+                ex = e;
                 System.out.println("No match found for " + e.getVertex1() + " " + e.getVertex2() + " " + e.getWeight());
             }
-        }
-        if (!actualCopy.isEmpty()) {
-            for (Edge e : expectedCopy) {
+            for (Edge e : actualCopy) {
+                ac = e;
                 System.out.println("Edge " + e.getVertex1() + " " + e.getVertex2() + " " + e.getWeight() + " was not expected");
+            }
+            if (ex != null && ac != null && ex.getWeight() == ac.getWeight()) {
+                System.out.println("Warning: No actual match for " + ac.getVertex1() + " - " + ac.getVertex2() + ", but could be another solution since both edges have the same weight!");
             }
         }
         return expectedCopy.isEmpty() && actualCopy.isEmpty();
