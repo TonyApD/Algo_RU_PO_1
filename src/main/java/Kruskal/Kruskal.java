@@ -3,8 +3,8 @@ package Kruskal;
 import java.util.*;
 
 public class Kruskal {
-    private int nodeCount;    //how many nodes. NODE COUNT MUST BE ENTERED MANUALLY. No error handling between nodeCount and graphEdges
-    private ArrayList<Edge> graphEdges;        //edge list, not adjacency list
+    private int nodeCount;
+    private ArrayList<Edge> graphEdges;
 
     public Kruskal(int nodeCount, ArrayList<Edge> graphEdges) {
         this.nodeCount = nodeCount;
