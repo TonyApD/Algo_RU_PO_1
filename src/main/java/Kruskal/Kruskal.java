@@ -65,6 +65,8 @@ public class Kruskal {
 //    }
 
     public void kruskalMST(int[][] adj_matrix) {
+        boolean isFirstEdge = true;
+        int lowestWeigth = 0;
         String outputMessage = "";    //hold output for the user to know algorithm's progress
         ArrayList<Edge> possibleEdges = new ArrayList<>();
 
@@ -77,6 +79,10 @@ public class Kruskal {
 
         for (int i = 0; i < graphEdges.size(); i++) {        //Early termination when number of edges=(number of nodes -1)
             Edge currentEdge = graphEdges.get(i);
+            if (isFirstEdge) {
+                isFirstEdge = false;
+                lowestWeigth = currentEdge.getWeight();
+            }
             int root1 = nodeSet.find(currentEdge.getVertex1());
             int root2 = nodeSet.find(currentEdge.getVertex2());
             outputMessage += "find(" + currentEdge.getVertex1() + ") returns " + root1 + ", find(" + currentEdge.getVertex2() + ") returns " + root2;        //just print, keep on same line for union message
@@ -86,7 +92,7 @@ public class Kruskal {
                     mstEdges.add(currentEdge);        //add the edge to the graph
                     nodeSet.union(root1, root2);    //merge the sets
                     unionMessage = ",\tUnion(" + root1 + ", " + root2 + ") done\n";        //change what's printed if a union IS performed
-                } else if (currentEdge.getWeight() <= 4) {
+                } else if (currentEdge.getWeight() <= lowestWeigth) {
                     possibleEdges.add(currentEdge);
                 }
 
