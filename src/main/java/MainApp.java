@@ -1,37 +1,35 @@
+import Kruskal.Edge;
+import Kruskal.Kruskal;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainApp {
     public static void main(String[] args) {
-        // read input
-        Scanner s = new Scanner(System.in);
-        int n = s.nextInt();
-        System.out.println("n: " + n);
-        int[][] matrix = new int[n][n];
+        int adjacency_matrix[][];
+        int numberofvertices;
+        int nodeCount;    //how many nodes. NODE COUNT MUST BE ENTERED MANUALLY. No error handling between nodeCount and graphEdges
+        ArrayList<Edge> graphEdges;        //edge list, not adjacency list
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                int d_ij = s.nextInt();
-                matrix[i][j] = d_ij;
-                // use or store the distance d_ij in some way
+        Scanner scan = new Scanner(System.in);
+        numberofvertices = scan.nextInt();
+
+        adjacency_matrix = new int[numberofvertices][numberofvertices];
+
+        graphEdges = new ArrayList<Edge>();
+        for (int i = 0; i < numberofvertices; i++) {
+            for (int j = 0; j < numberofvertices; j++) {
+                adjacency_matrix[i][j] = scan.nextInt();
             }
         }
 
-        //filter the matrix by removing double paths
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j <= i; j++) {
-                matrix[i][j] = (int) Double.MAX_VALUE;
+        for (int i = 0; i < numberofvertices; i++) {
+            for (int j = i + 1; j < numberofvertices; j++) {
+                graphEdges.add(new Edge(i + 1, j + 1, adjacency_matrix[i][j]));
             }
         }
-
-        // compute things
-        // ???
-
-        // write output
-        for (int k = 0; k < n; k++) {
-            int p1 = 1; // first point
-            int p2 = 2; // second point
-            int d = matrix[p1][p2];  // distance
-            System.out.println(p1 + " " + p2 + " " + d);
-        }
+        nodeCount = numberofvertices;
+        Kruskal graph = new Kruskal(nodeCount, graphEdges);
+        graph.kruskalMST();                //run Kruskal's algorithm to find a MST
     }
 }

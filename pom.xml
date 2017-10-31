@@ -27,7 +27,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>Kruskal.Kruskal</mainClass>
+                            <mainClass>MainApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
