@@ -31,39 +31,39 @@ public class Kruskal {
             }
             int root1 = nodeSet.find(currentEdge.getVertex1());
             int root2 = nodeSet.find(currentEdge.getVertex2());
-            outputMessage.append("find(").append(currentEdge.getVertex1()).append(") returns ").append(root1).append(", find(").append(currentEdge.getVertex2()).append(") returns ").append(root2);        //just print, keep on same line for union message
-            String unionMessage = ",\tNo union performed\n";        //assume no union is to be performed, changed later if a union DOES happen
+            //outputMessage.append("find(").append(currentEdge.getVertex1()).append(") returns ").append(root1).append(", find(").append(currentEdge.getVertex2()).append(") returns ").append(root2);        //just print, keep on same line for union message
+            //String unionMessage = ",\tNo union performed\n";        //assume no union is to be performed, changed later if a union DOES happen
             if (mstEdges.size() < nodeCount - 1) {
                 if (root1 != root2) {            //if roots are in different sets
                     mstEdges.add(currentEdge);        //add the edge to the graph
                     nodeSet.union(root1, root2);    //merge the sets
-                    unionMessage = ",\tUnion(" + root1 + ", " + root2 + ") done\n";        //change what's printed if a union IS performed
+                    //unionMessage = ",\tUnion(" + root1 + ", " + root2 + ") done\n";        //change what's printed if a union IS performed
                 } else if (currentEdge.getWeight() <= lowestWeigth) {
                     possibleEdges.add(currentEdge);
                 }
 
-                outputMessage.append(unionMessage);
+                //outputMessage.append(unionMessage);
             } else if (mstEdges.size() == nodeCount - 1) {
                 if (!possibleEdges.isEmpty()) {
                     mstEdges.add(possibleEdges.get(0));        //add the edge to the graph
                     nodeSet.union(possibleEdges.get(0).getVertex1(), possibleEdges.get(0).getVertex2());    //merge the sets
-                    outputMessage.append(",\tUnion(").append(root1).append(", ").append(root2).append(") done\n");
+                    //outputMessage.append(",\tUnion(").append(root1).append(", ").append(root2).append(") done\n");
                 } else {
                     mstEdges.add(currentEdge);        //add the edge to the graph
                     //nodeSet.union(root1, root2);    //merge the sets
-                    unionMessage = ",\tUnion(" + root1 + ", " + root2 + ") done\n";        //change what's printed if a union IS performed
-                    outputMessage.append(unionMessage);
+                    //unionMessage = ",\tUnion(" + root1 + ", " + root2 + ") done\n";        //change what's printed if a union IS performed
+                    //outputMessage.append(unionMessage);
                 }
             }
         }
 
-        outputMessage.append("\nFinal Minimum Spanning Tree (").append(mstEdges.size()).append(" edges)\n");
+        //outputMessage.append("\nFinal Minimum Spanning Tree (").append(mstEdges.size()).append(" edges)\n");
         int mstTotalEdgeWeight = 0;        //keeps track of total weight of all edges in the MST
         for (Edge edge : mstEdges) {
             outputMessage.append(edge).append("\n");        //print each edge
-            mstTotalEdgeWeight += edge.getWeight();
+            //mstTotalEdgeWeight += edge.getWeight();
         }
-        outputMessage.append("\nTotal weight of all edges in MST: ").append(mstTotalEdgeWeight);
-        System.out.println(outputMessage);
+        //outputMessage.append("\nTotal weight of all edges in MST: ").append(mstTotalEdgeWeight);
+        System.out.print(outputMessage);
     }
 }

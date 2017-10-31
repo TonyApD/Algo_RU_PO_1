@@ -11,25 +11,25 @@ public class Edge implements Comparable<Edge> {
         this.weight = weight;
     }
 
-    public int getVertex1() {
-        return vertex1;
-    }
-
-    public int getVertex2() {
-        return vertex2;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    @Override
     public int compareTo(Edge otherEdge) {                //Compare based on edge weight (for sorting)
         return this.getWeight() - otherEdge.getWeight();
     }
 
-    @Override
+    int getVertex1() {
+        return vertex1;
+    }
+
+    int getVertex2() {
+        return vertex2;
+    }
+
+    int getWeight() {
+        return weight;
+    }
+
     public String toString() {
-        return "(" + getVertex1() + ", " + getVertex2() + ") weight: " + getWeight();
+        // Old one:
+        // return "(" + getVertex1() + ", " + getVertex2() + ") weight: " + getWeight();
+        return getVertex1() + " " + getVertex2() + " " + getWeight();
     }
 }
