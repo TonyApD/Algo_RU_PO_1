@@ -2,24 +2,26 @@ import Kruskal.Edge;
 import Kruskal.Kruskal;
 import Utils.Stopwatch;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainApp {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.start();
-        executeKruskal();
+        executeKruskal(args[0]);
         stopwatch.stop();
     }
 
-    private static void executeKruskal() {
+    private static void executeKruskal(String input) throws FileNotFoundException {
         int adjacency_matrix[][];
         int numberofvertices;
         int nodeCount;    //how many nodes. NODE COUNT MUST BE ENTERED MANUALLY. No error handling between nodeCount and graphEdges
         ArrayList<Edge> graphEdges;        //edge list, not adjacency list
 
-        Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(new FileReader(input));
         numberofvertices = scan.nextInt();
 
         adjacency_matrix = new int[numberofvertices][numberofvertices];
