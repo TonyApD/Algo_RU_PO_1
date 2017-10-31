@@ -63,9 +63,7 @@ public class Kruskal {
             outputMessage.append(edge).append("\n");        //print each edge
             //mstTotalEdgeWeight += edge.getWeight();
         }
-
-        System.out.println(outputMessage);
-
+        System.out.print(outputMessage);
         return mstEdges;
     }
 }
