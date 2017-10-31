@@ -14,11 +14,10 @@ public class Kruskal {
     public void kruskalMST() {
         boolean isFirstEdge = true;
         int lowestWeigth = 0;
-        String outputMessage = "";    //hold output for the user to know algorithm's progress
+        StringBuilder outputMessage = new StringBuilder();    //hold output for the user to know algorithm's progress
         ArrayList<Edge> possibleEdges = new ArrayList<>();
 
         Collections.sort(graphEdges);        //sort edges with smallest weight 1st
-        // IN PROGRESS:
 
         ArrayList<Edge> mstEdges = new ArrayList<Edge>();    //list of edges included in the Minimum spanning tree (initially empty)
 
@@ -32,7 +31,7 @@ public class Kruskal {
             }
             int root1 = nodeSet.find(currentEdge.getVertex1());
             int root2 = nodeSet.find(currentEdge.getVertex2());
-            outputMessage += "find(" + currentEdge.getVertex1() + ") returns " + root1 + ", find(" + currentEdge.getVertex2() + ") returns " + root2;        //just print, keep on same line for union message
+            outputMessage.append("find(").append(currentEdge.getVertex1()).append(") returns ").append(root1).append(", find(").append(currentEdge.getVertex2()).append(") returns ").append(root2);        //just print, keep on same line for union message
             String unionMessage = ",\tNo union performed\n";        //assume no union is to be performed, changed later if a union DOES happen
             if (mstEdges.size() < nodeCount - 1) {
                 if (root1 != root2) {            //if roots are in different sets
@@ -43,28 +42,28 @@ public class Kruskal {
                     possibleEdges.add(currentEdge);
                 }
 
-                outputMessage += unionMessage;
+                outputMessage.append(unionMessage);
             } else if (mstEdges.size() == nodeCount - 1) {
                 if (!possibleEdges.isEmpty()) {
                     mstEdges.add(possibleEdges.get(0));        //add the edge to the graph
                     nodeSet.union(possibleEdges.get(0).getVertex1(), possibleEdges.get(0).getVertex2());    //merge the sets
-                    outputMessage += ",\tUnion(" + root1 + ", " + root2 + ") done\n";
+                    outputMessage.append(",\tUnion(").append(root1).append(", ").append(root2).append(") done\n");
                 } else {
                     mstEdges.add(currentEdge);        //add the edge to the graph
                     //nodeSet.union(root1, root2);    //merge the sets
                     unionMessage = ",\tUnion(" + root1 + ", " + root2 + ") done\n";        //change what's printed if a union IS performed
-                    outputMessage += unionMessage;
+                    outputMessage.append(unionMessage);
                 }
             }
         }
 
-        outputMessage += "\nFinal Minimum Spanning Tree (" + mstEdges.size() + " edges)\n";
+        outputMessage.append("\nFinal Minimum Spanning Tree (").append(mstEdges.size()).append(" edges)\n");
         int mstTotalEdgeWeight = 0;        //keeps track of total weight of all edges in the MST
         for (Edge edge : mstEdges) {
-            outputMessage += edge + "\n";        //print each edge
+            outputMessage.append(edge).append("\n");        //print each edge
             mstTotalEdgeWeight += edge.getWeight();
         }
-        outputMessage += "\nTotal weight of all edges in MST: " + mstTotalEdgeWeight;
+        outputMessage.append("\nTotal weight of all edges in MST: ").append(mstTotalEdgeWeight);
         System.out.println(outputMessage);
     }
 }

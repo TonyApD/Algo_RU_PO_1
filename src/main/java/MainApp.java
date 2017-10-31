@@ -6,6 +6,9 @@ import java.util.Scanner;
 
 public class MainApp {
     public static void main(String[] args) {
+        System.out.println("---------------- Starting calculations ----------------");
+        long startTime = System.currentTimeMillis();
+
         int adjacency_matrix[][];
         int numberofvertices;
         int nodeCount;    //how many nodes. NODE COUNT MUST BE ENTERED MANUALLY. No error handling between nodeCount and graphEdges
@@ -30,6 +33,10 @@ public class MainApp {
         }
         nodeCount = numberofvertices;
         Kruskal graph = new Kruskal(nodeCount, graphEdges);
-        graph.kruskalMST();                //run Kruskal's algorithm to find a MST
+        graph.kruskalMST();
+
+        long endTime = System.currentTimeMillis();
+        System.out.println("---------------- Done ----------------");
+        System.out.println("Operation took: " + (endTime - startTime) + " milliseconds");
     }
 }
