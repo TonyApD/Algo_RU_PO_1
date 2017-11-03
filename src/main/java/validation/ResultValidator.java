@@ -15,7 +15,6 @@ public class ResultValidator {
     private static ArrayList<Edge> validEdges = new ArrayList<>();
 
     public static void main(String[] args) {
-
         try {
             System.out.println("Correct result: " + EdgeListValidator.validate(getExpectedResults(args[0]), getActualResults(args[0])));
         } catch (FileNotFoundException e) {
@@ -23,10 +22,22 @@ public class ResultValidator {
         }
     }
 
+    /**
+     * Don't think we really have to document this as we might remove this later?
+     *
+     * @param fileName
+     * @return
+     * @throws FileNotFoundException
+     */
     private static List<Edge> getActualResults(String fileName) throws FileNotFoundException {
         return GraphBuilder.execute(FileUtil.fileFolderPrefix + fileName + ".in", false);
     }
 
+    /**
+     * @param fileName
+     * @return
+     * @throws FileNotFoundException
+     */
     private static List<Edge> getExpectedResults(String fileName) throws FileNotFoundException {
         Scanner scan = new Scanner(new FileReader(FileUtil.fileFolderPrefix + fileName + ".ans"));
         while (scan.hasNext()) {

@@ -1,7 +1,11 @@
 package Kruskal;
-
+/**
+ * Edge class, using comparisons to compare two edges against each other.
+ * Represents the adjacency matrix input after transformation.
+ * A edge consists of two vertices and one weight.
+ */
 public class Edge implements Comparable<Edge> {
-    private int vertex1;    //an edge has 2 vertices & a weight
+    private int vertex1;
     private int vertex2;
     private int weight;
 
@@ -11,7 +15,12 @@ public class Edge implements Comparable<Edge> {
         this.weight = weight;
     }
 
-    public int compareTo(Edge otherEdge) {                //Compare based on edge weight (for sorting)
+    /**
+     * Compare based on edge weight (for sorting purposes)
+     * @param otherEdge
+     * @return
+     */
+    public int compareTo(Edge otherEdge) {
         return this.getWeight() - otherEdge.getWeight();
     }
 
@@ -27,9 +36,11 @@ public class Edge implements Comparable<Edge> {
         return weight;
     }
 
+    /**
+     * Print function to return the correct output for this assignment.
+     * @return
+     */
     public String toString() {
-        // Old one:
-        // return "(" + getVertex1() + ", " + getVertex2() + ") weight: " + getWeight();
         return getVertex1() + " " + getVertex2() + " " + getWeight();
     }
 }

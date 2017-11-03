@@ -5,6 +5,9 @@ import Kruskal.Edge;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Not sure if we should write any doc for validation as we will most likely remove it later anyway.
+ */
 public class EdgeListValidator {
 
     private static ArrayList<Edge> expectedCopy = new ArrayList<>();

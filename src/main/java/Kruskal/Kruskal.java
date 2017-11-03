@@ -6,11 +6,21 @@ public class Kruskal {
     private int nodeCount;
     private ArrayList<Edge> graphEdges;
 
+    /**
+     *
+     * @param nodeCount
+     * @param graphEdges
+     */
     public Kruskal(int nodeCount, ArrayList<Edge> graphEdges) {
         this.nodeCount = nodeCount;
         this.graphEdges = graphEdges;
     }
 
+    /**
+     *
+     * @param print
+     * @return
+     */
     public List<Edge> kruskalMST(boolean print) {
         boolean isFirstEdge = true;
         int lowestWeigth = 0;

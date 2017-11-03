@@ -1,8 +1,16 @@
 package Kruskal;
 
+/**
+ * Disjoint set class, using union by rank and path compression.
+ * Elements in the set are numbered starting at 0.
+ */
 public class DisjointSet {
     private int[] s;        //the set field
 
+    /**
+     *
+     * @return
+     */
     public int[] getSet() {        //mostly debugging method to print array
         return s;
     }
@@ -20,8 +28,7 @@ public class DisjointSet {
 
     /**
      * Union two disjoint sets using the height heuristic.
-     * For simplicity, we assume root1 and root2 are distinct
-     * and represent set names.
+     * For simplicity, we assume root1 and root2 are distinct and represent set names.
      *
      * @param root1 the root of set 1.
      * @param root2 the root of set 2.
