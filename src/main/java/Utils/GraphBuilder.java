@@ -34,8 +34,7 @@ public class GraphBuilder {
             scan.nextLine();
             for (int i = 0; i < line; i++) {
                 if (line < numberofvertices) {
-                    int s = scan.nextInt();
-                    graphEdges.add(new Edge(i + 1, line + 1, s));
+                    graphEdges.add(new Edge(i + 1, line + 1, scan.nextInt()));
                 }
             }
             line++;
