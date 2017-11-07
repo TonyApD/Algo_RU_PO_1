@@ -62,3 +62,10 @@ Session.vim
 [Tt]humbs.db
 Desktop.ini
 $RECYCLE.BIN/
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+documentation/Documentation_Algorithm.pdf
+*.out
+*.gz
