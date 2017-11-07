@@ -3,6 +3,7 @@ package validation;
 import Kruskal.Edge;
 import Utils.FileUtil;
 import Utils.GraphBuilder;
+import Utils.Stopwatch;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,11 +16,14 @@ public class ResultValidator {
     private static ArrayList<Edge> validEdges = new ArrayList<>();
 
     public static void main(String[] args) {
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.start();
         try {
             System.out.println("Correct result: " + EdgeListValidator.validate(getExpectedResults(args[0]), getActualResults(args[0])));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        stopwatch.stop();
     }
 
     /**

@@ -22,31 +22,26 @@ import java.util.Scanner;
 public class GraphBuilder {
 
     public static List<Edge> execute(String input, boolean print) throws FileNotFoundException {
-        int adjacency_matrix[][];
         int numberofvertices;
-        int nodeCount;
         ArrayList<Edge> graphEdges;        //edge list, not adjacency list
 
         Scanner scan = new Scanner(new FileReader(input));
         numberofvertices = scan.nextInt();
 
-        adjacency_matrix = new int[numberofvertices][numberofvertices];
-
+        int line = 0;
         graphEdges = new ArrayList<Edge>();
-        for (int i = 0; i < numberofvertices; i++) {
-            for (int j = 0; j < numberofvertices; j++) {
-                adjacency_matrix[i][j] = scan.nextInt();
+        while (scan.hasNextLine()) {
+            scan.nextLine();
+            for (int i = 0; i < line; i++) {
+                if (line < numberofvertices) {
+                    int s = scan.nextInt();
+                    graphEdges.add(new Edge(i + 1, line + 1, s));
+                }
             }
+            line++;
         }
 
-        for (int i = 0; i < numberofvertices; i++) {
-            for (int j = i + 1; j < numberofvertices; j++) {
-                graphEdges.add(new Edge(i + 1, j + 1, adjacency_matrix[i][j]));
-            }
-        }
-
-        nodeCount = numberofvertices;
-        Kruskal graph = new Kruskal(nodeCount, graphEdges);
+        Kruskal graph = new Kruskal(numberofvertices, graphEdges);
         return graph.kruskalMST(print);
     }
 }
