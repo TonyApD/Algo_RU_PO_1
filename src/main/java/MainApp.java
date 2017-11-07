@@ -11,7 +11,7 @@ public class MainApp {
     public static void main(String[] args) throws FileNotFoundException {
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.start();
-        GraphBuilder.execute(FileUtil.fileFolderPrefix + args[0] + ".in", false);
+        GraphBuilder.execute(FileUtil.fileFolderPrefix + args[0] + ".in", true);
         stopwatch.stop();
     }
 }
