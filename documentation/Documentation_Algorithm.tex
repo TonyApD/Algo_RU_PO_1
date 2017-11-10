@@ -13,21 +13,80 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
 
+\newcommand{\bigO}[1]{\mathcal{O}(#1)}
+\newcommand{\textHighlight}[1]{\textcolor{red}{#1}}
+
 \begin{document}
 
 \title{Practical assignment 1 \\ Algorithms \& Datastructures}
 \author{Carlo Jessurun s1013793 \\ Tony Lopar s1013792}
-\date{\today}
+\date{\parbox{\linewidth}{\centering%
+  Nijmegen, \today\endgraf\bigskip
+  Frits Vaandrager\endgraf\medskip
+  2017-2018 \endgraf
+  Radboud University Nijmegen}}
 \maketitle
 
 \newpage
+\tableofcontents
+
+\newpage
 \section{Explenation}
+In this chapter we will explain the processes that take place in the algorithm. The algorithm can be split into multiple processes. The three main processes the algorithm performs are:
+\begin{itemize}
+  \item Import input
+  \item Algorithm
+  \item Writing output
+\end{itemize}
+
+\subsection{Import input}
+The input contains a number of constellations $n$ and a matrix of $n \cdot n$. This number can be used to identify the size of the matrix and help with the import. This number may also be used to check whether the lines of the output are equal to the constellations, so we save this value.
+
+An example of a matrix with 4 constellations can be seen in table~\ref{table:T1}. We can see that the table is symmetric since the path between two cities may be also taken the other way. We also see that there is no path from a city to itself. This means that a half of the matrix should give enough information, so we may only import the half of the matrix.  The \textbf{stdin} in java reads lines from the start which makes reading the bottom of the matrix a better option than the top. The values that are read in this case are marked red in table~\ref{table:T1}.
+
+\begin{table}[h]
+  \begin{center}
+    \begin{tabular}{c | c | c | c}
+      0 & 1 & 2 & 3 \\ \hline
+      \textHighlight{1} & 0 & 1 & 2 \\ \hline
+      \textHighlight{2} & \textHighlight{1} & 0 & 1 \\ \hline
+      \textHighlight{3} & \textHighlight{2} & \textHighlight{1} & 0
+    \end{tabular}
+    \caption{Example matrix} \label{table:T1}
+  \end{center}
+\end{table}
+\vspace{-0,5cm}
+For all the values that are read in the input an edge in the graph is created with the cost of the path. After the input is fully read, we have a graph with an edge between each pair of cities as result.
+
+\subsection{Algorithm}
+\subsection{Writing output}
+The algorithm resulted in a graph with the same number of edges as there are constellations. These edges are saved in an array over which we can iterate and print the edge to the console. In the Edge class the $toString$ method is modified to print according to the guidelines.
 
 \newpage
 \section{Analysis}
 
 \subsection{Correctness}
+In this section we will discuss the Correctness of the processes.
+
+\paragraph{Import input}
+\subsection{Algorithm}
+\subsection{Writing output}
 
 \subsection{Complexity}
+In this section we will give an analysis of the complex of the alorithm. We will give the complexity for each part of the alogorithm and discuss these in detail. After this, the complexity of the total algorithm following from the subprocesses will be given. The complexities for the subprocesses are as follows.
+\begin{itemize}
+  \item Import input $\bigO{n^2}$
+  \item Algorithm - \textbf{eventueel opsplitsen in meerdere processen?}
+  \item Writing output $O(n)$
+  \item Total algorithm $\bigO{n^2}$ - \textbf{ik gok dit alvast omdat ik denk dat verder niets een hogere complexiteit heeft?}
+\end{itemize}
+
+\paragraph{Import input}
+The input is being imported from the \textbf{stdin}. A scanner scans the lines till they reach the value of the city to itself and skips the rest of the line. In this way only the bottom of the matrix is read. Since the number of constellations is one number this is a constrant the detailed complexity of the importing of the data is $\bigO{\frac{1}{2}n^2 - \frac{1}{2}n + 1}$. Since the first part depends on $n^2$ the complexity of the importing process is $\bigO{n^2}$.
+
+\paragraph{Algorithm}
+
+\paragraph{Writing output}
+The complexity of writing the output is $\bigO{n}$. The array with edges will only contain $n$ elements which are iterated and printed.
 
 \end{document}
