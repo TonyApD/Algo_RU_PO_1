@@ -1,4 +1,3 @@
-package Kruskal;
 
 import java.util.*;
 

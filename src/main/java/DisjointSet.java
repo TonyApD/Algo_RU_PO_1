@@ -1,4 +1,4 @@
-package Kruskal;
+
 
 /**
  * Disjoint set class, using union by rank and path compression.

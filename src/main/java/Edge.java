@@ -1,4 +1,4 @@
-package Kruskal;
+
 /**
  * Edge class, using comparisons to compare two edges against each other.
  * Represents the adjacency matrix input after transformation.

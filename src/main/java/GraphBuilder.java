@@ -1,8 +1,3 @@
-package Utils;
-
-import Kruskal.Edge;
-import Kruskal.Kruskal;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -25,7 +20,7 @@ public class GraphBuilder {
         int numberofvertices;
         ArrayList<Edge> graphEdges;        //edge list, not adjacency list
 
-        Scanner scan = new Scanner(new FileReader(input));
+        Scanner scan = new Scanner(input);
         numberofvertices = scan.nextInt();
 
         int line = 0;
