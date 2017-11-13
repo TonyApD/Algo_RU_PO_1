@@ -20,7 +20,7 @@ public class GraphBuilder {
         int numberofvertices;
         ArrayList<Edge> graphEdges;        //edge list, not adjacency list
 
-        Scanner scan = new Scanner(input);
+        Scanner scan = new Scanner(new FileReader(input));
         numberofvertices = scan.nextInt();
 
         int line = 0;
