@@ -6,7 +6,6 @@ public class Kruskal {
     private ArrayList<Edge> graphEdges;
 
     /**
-     *
      * @param nodeCount
      * @param graphEdges
      */
@@ -16,11 +15,9 @@ public class Kruskal {
     }
 
     /**
-     *
-     * @param print
      * @return
      */
-    public List<Edge> kruskalMST(boolean print) {
+    public List<Edge> kruskalMST() {
         boolean isFirstEdge = true;
         int lowestWeigth = 0;
         StringBuilder outputMessage = new StringBuilder();    //hold output for the user to know algorithm's progress
@@ -72,9 +69,8 @@ public class Kruskal {
             outputMessage.append(edge).append("\n");        //print each edge
             //mstTotalEdgeWeight += edge.getWeight();
         }
-        if(print) {
-            System.out.print(outputMessage);
-        }
+        System.out.print(outputMessage);
+
         return mstEdges;
     }
 }

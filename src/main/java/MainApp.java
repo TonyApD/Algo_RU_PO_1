@@ -7,6 +7,6 @@ import java.io.FileNotFoundException;
  */
 public class MainApp {
     public static void main(String[] args) throws FileNotFoundException {
-        GraphBuilder.execute(args[0], true);
+        GraphBuilder.execute();
     }
 }

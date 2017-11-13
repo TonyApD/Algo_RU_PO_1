@@ -16,11 +16,11 @@ import java.util.Scanner;
  */
 public class GraphBuilder {
 
-    public static List<Edge> execute(String input, boolean print) throws FileNotFoundException {
+    public static List<Edge> execute() throws FileNotFoundException {
         int numberofvertices;
         ArrayList<Edge> graphEdges;        //edge list, not adjacency list
 
-        Scanner scan = new Scanner(new FileReader(input));
+        Scanner scan = new Scanner(System.in);
         numberofvertices = scan.nextInt();
 
         int line = 0;
@@ -36,6 +36,6 @@ public class GraphBuilder {
         }
 
         Kruskal graph = new Kruskal(numberofvertices, graphEdges);
-        return graph.kruskalMST(print);
+        return graph.kruskalMST();
     }
 }
