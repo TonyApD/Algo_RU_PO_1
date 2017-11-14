@@ -8,7 +8,6 @@ public class DisjointSet {
     private int[] s;        //the set field
 
     /**
-     *
      * @return
      */
     public int[] getSet() {        //mostly debugging method to print array
@@ -20,9 +19,9 @@ public class DisjointSet {
      *
      * @param numElements the initial number of disjoint sets.
      */
-    public DisjointSet(int numElements) {        //constructor creates singleton sets
+    DisjointSet(int numElements) {
         s = new int[numElements];
-        for (int i = 0; i < s.length; i++)        //initialize to -1 so the trees have nothing in them
+        for (int i = 0; i < s.length; i++)
             s[i] = -1;
     }
 
@@ -33,13 +32,13 @@ public class DisjointSet {
      * @param root1 the root of set 1.
      * @param root2 the root of set 2.
      */
-    public void union(int root1, int root2) {
-        if (s[root2] < s[root1])  // root2 is deeper
-            s[root1] = root2;        // Make root2 new root
+    void union(int root1, int root2) {
+        if (s[root2] < s[root1])
+            s[root1] = root2;
         else {
             if (s[root1] == s[root2])
-                s[root1]--;          // Update height if same
-            s[root2] = root1;        // Make root1 new root
+                s[root1]--;
+            s[root2] = root1;
         }
     }
 
@@ -50,8 +49,8 @@ public class DisjointSet {
      * @param x the element being searched for.
      * @return the set containing x.
      */
-    public int find(int x) {
-        if (s[x] < 0)    //if tree has no elements, then it is its own root
+    int find(int x) {
+        if (s[x] < 0)
             return x;
         else
             return s[x] = find(s[x]);

@@ -24,15 +24,15 @@ public class Edge implements Comparable<Edge> {
         return this.getWeight() - otherEdge.getWeight();
     }
 
-    public int getVertex1() {
+    int getVertex1() {
         return vertex1;
     }
 
-    public int getVertex2() {
+    int getVertex2() {
         return vertex2;
     }
 
-    public int getWeight() {
+    int getWeight() {
         return weight;
     }
 

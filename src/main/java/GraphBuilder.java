@@ -14,9 +14,9 @@ import java.util.Scanner;
  * We want to turn that adjacency matrix into a graph
  * This is done with the GraphBuilder class below which takes a string as input and has a graph as output.
  */
-public class GraphBuilder {
+class GraphBuilder {
 
-    public static List<Edge> execute() throws FileNotFoundException {
+    static List<Edge> execute() throws FileNotFoundException {
         int numberofvertices;
         ArrayList<Edge> graphEdges;        //edge list, not adjacency list
 
