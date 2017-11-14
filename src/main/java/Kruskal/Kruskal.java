@@ -27,7 +27,8 @@ public class Kruskal {
         StringBuilder outputMessage = new StringBuilder();    //hold output for the user to know algorithm's progress
         ArrayList<Edge> possibleEdges = new ArrayList<>();
 
-        Collections.sort(graphEdges);        //sort edges with smallest weight 1st
+
+        Collections.sort(graphEdges);        // sort edges with smallest weight 1st
 
         ArrayList<Edge> mstEdges = new ArrayList<Edge>();    //list of edges included in the Minimum spanning tree (initially empty)
 
