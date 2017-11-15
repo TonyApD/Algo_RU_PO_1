@@ -64,25 +64,25 @@ public class Kruskal {
 //                        mstEdges.add(currentEdge);
 //                    }
                 }
-            } else {
-                break;
+//            } else if(mstEdges.size() == nodeCount) {
+//                break;
             }
         }
 
         //mstEdges.add(new Edge(64, 124, 933));
-        if (mstEdges.size() < nodeCount) {
+        //if (mstEdges.size() <= nodeCount) {
             if (hasAWrongpath()) {
                 mstEdges.remove(bruteforcedEdge);
             }
-        }
+        //}
 
-//            for (Edge e : graphEdges) {
-//                bfsReset();
-//                BFS(e.getVertex1());
-//                if (distance[e.getVertex2()] != e.getWeight()) {
-//                    System.out.println("Wrong distance from " + e.getVertex1() + " to " + e.getVertex2() + " was " + e.getWeight() + " is now " + distance[e.getVertex2()]);
-//                }
-//            }
+            for (Edge e : graphEdges) {
+                bfsReset();
+                BFS(e.getVertex1());
+                if (distance[e.getVertex2()] != e.getWeight()) {
+                    System.out.println("Wrong distance from " + e.getVertex1() + " to " + e.getVertex2() + " was " + e.getWeight() + " is now " + distance[e.getVertex2()]);
+                }
+            }
 
 //        dijkstraReset();
 //        dijkstra(1);
@@ -97,15 +97,24 @@ public class Kruskal {
     }
 
     private boolean hasAWrongpath() {
-        for (int i = mstEdges.size(); i < graphEdges.size(); i++) {
+        for (int i = mstEdges.size(); i < Math.min(graphEdges.size(), mstEdges.size() + (2* nodeCount)); i++) {
             bfsReset();
             BFS(graphEdges.get(i).getVertex1());
-            if (distance[graphEdges.get(i).getVertex2()] > graphEdges.get(i).getWeight() && !mstEdges.contains(graphEdges.get(i))) {
-                System.out.println("Fixup wrong path of " + distance[graphEdges.get(i).getVertex2()] + " to " +  graphEdges.get(i).getWeight());
+            if (distance[graphEdges.get(i).getVertex2()] != graphEdges.get(i).getWeight()) {
+                //System.out.println("Fixup wrong path of " + distance[graphEdges.get(i).getVertex2()] + " to " +  graphEdges.get(i).getWeight());
                 mstEdges.add(graphEdges.get(i));
                 return true;
             }
         }
+//        for (Edge e : graphEdges) {
+//            bfsReset();
+//            BFS(e.getVertex1());
+//            if (distance[e.getVertex2()] != e.getWeight()) {
+//                mstEdges.add(e);
+//                System.out.println("Wrong distance from " + e.getVertex1() + " to " + e.getVertex2() + " was " + e.getWeight() + " is now " + distance[e.getVertex2()]);
+//                return true;
+//            }
+//        }
         return false;
     }
 
