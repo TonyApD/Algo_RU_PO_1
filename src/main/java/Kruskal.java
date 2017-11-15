@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class Kruskal {
@@ -6,6 +5,7 @@ public class Kruskal {
     private ArrayList<Edge> graphEdges;
     private ArrayList<Edge> mstEdges = new ArrayList<>();
     int distance[];
+    boolean visited[];
 
     /**
      * @param nodeCount
@@ -15,12 +15,13 @@ public class Kruskal {
         this.nodeCount = nodeCount;
         this.graphEdges = graphEdges;
         distance = new int[nodeCount + 1];
+        visited = new boolean[nodeCount + 1];
     }
 
     /**
      * @return
      */
-    List<Edge> kruskalMST() {
+    public List<Edge> kruskalMST() {
         boolean isFirstEdge = true;
         int lowestWeigth = 0;
         StringBuilder outputMessage = new StringBuilder();
@@ -52,13 +53,38 @@ public class Kruskal {
                     mstEdges.add(possibleEdges.get(0));
                     nodeSet.union(possibleEdges.get(0).getVertex1(), possibleEdges.get(0).getVertex2());
                 } else {
-                    bfsReset();
-                    BFS(currentEdge.getVertex1());
-                    if (distance[currentEdge.getVertex2()] != currentEdge.getWeight()) {
-                        possibleEdges.add(currentEdge);
-                    }
+                    //bfsReset();
+                    //BFS(currentEdge.getVertex1());
+//                    dijkstraReset();
+//                    dijkstra(currentEdge.getVertex1());
+//                    if (distance[currentEdge.getVertex2()] != currentEdge.getWeight()) {
+//                        mstEdges.add(currentEdge);
+//                    }
                 }
             }
+        }
+
+        //mstEdges.add(new Edge(64, 124, 933));
+        if (mstEdges.size() < nodeCount) {
+            mstEdges.add(graphEdges.get(mstEdges.size()));
+            if (hasAWrongpath()) {
+                mstEdges.remove(mstEdges.get(mstEdges.size() - 1));
+            }
+        }
+
+//            for (Edge e : graphEdges) {
+//                dijkstraReset();
+//                dijkstra(e.getVertex1());
+//                if (distance[e.getVertex2()] != e.getWeight()) {
+//                    System.out.println("Wrong distance from " + e.getVertex1() + " to " + e.getVertex2() + " was " + e.getWeight() + " is now " + distance[e.getVertex2()]);
+//                }
+//            }
+
+//        dijkstraReset();
+//        dijkstra(1);
+//        System.out.println(distance[2]);
+        if (mstEdges.size() == nodeCount - 1) {
+            mstEdges.add(graphEdges.get(mstEdges.size()));
         }
 
         for (Edge edge : mstEdges) {
@@ -69,11 +95,19 @@ public class Kruskal {
         return mstEdges;
     }
 
-    void BFS(int s) {
-        // Mark all the vertices as not visited(By default
-        // set as false)
-        boolean visited[] = new boolean[nodeCount + 1];
+    private boolean hasAWrongpath() {
+        for (int i = mstEdges.size(); i < Math.min(graphEdges.size(), mstEdges.size() + nodeCount); i++) {
+            bfsReset();
+            BFS(graphEdges.get(i).getVertex1());
+            if (distance[graphEdges.get(i).getVertex2()] > graphEdges.get(i).getWeight() && !mstEdges.contains(graphEdges.get(i))) {
+                mstEdges.add(graphEdges.get(i));
+                return true;
+            }
+        }
+        return false;
+    }
 
+    void BFS(int s) {
         // Create a queue for BFS
         LinkedList<Integer> queue = new LinkedList<>();
 
@@ -105,6 +139,7 @@ public class Kruskal {
     private void bfsReset() {
         for (int i = 0; i <= nodeCount; i++) {
             distance[i] = 0;
+            visited[i] = false;
         }
     }
 
@@ -124,6 +159,16 @@ public class Kruskal {
                 returnList.add(e.getVertex2());
             } else if (e.getVertex2() == vertex) {
                 returnList.add(e.getVertex1());
+            }
+        }
+        return returnList;
+    }
+
+    private List<Edge> findEdgesFromVertex(int vertex) {
+        List<Edge> returnList = new ArrayList<>();
+        for (Edge e : mstEdges) {
+            if (e.getVertex1() == vertex || e.getVertex2() == vertex) {
+                returnList.add(e);
             }
         }
         return returnList;
