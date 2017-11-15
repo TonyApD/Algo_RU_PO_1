@@ -26,6 +26,7 @@ public class Kruskal {
         int lowestWeigth = 0;
         StringBuilder outputMessage = new StringBuilder();
         ArrayList<Edge> possibleEdges = new ArrayList<>();
+        Edge bruteforcedEdge = null;
 
         Collections.sort(graphEdges);
 
@@ -53,6 +54,8 @@ public class Kruskal {
                     mstEdges.add(possibleEdges.get(0));
                     nodeSet.union(possibleEdges.get(0).getVertex1(), possibleEdges.get(0).getVertex2());
                 } else {
+                    bruteforcedEdge = graphEdges.get(i);
+                    mstEdges.add(bruteforcedEdge);
                     //bfsReset();
                     //BFS(currentEdge.getVertex1());
 //                    dijkstraReset();
@@ -61,20 +64,21 @@ public class Kruskal {
 //                        mstEdges.add(currentEdge);
 //                    }
                 }
+            } else {
+                break;
             }
         }
 
         //mstEdges.add(new Edge(64, 124, 933));
         if (mstEdges.size() < nodeCount) {
-            mstEdges.add(graphEdges.get(mstEdges.size()));
             if (hasAWrongpath()) {
-                mstEdges.remove(mstEdges.get(mstEdges.size() - 1));
+                mstEdges.remove(bruteforcedEdge);
             }
         }
 
 //            for (Edge e : graphEdges) {
-//                dijkstraReset();
-//                dijkstra(e.getVertex1());
+//                bfsReset();
+//                BFS(e.getVertex1());
 //                if (distance[e.getVertex2()] != e.getWeight()) {
 //                    System.out.println("Wrong distance from " + e.getVertex1() + " to " + e.getVertex2() + " was " + e.getWeight() + " is now " + distance[e.getVertex2()]);
 //                }
@@ -83,9 +87,6 @@ public class Kruskal {
 //        dijkstraReset();
 //        dijkstra(1);
 //        System.out.println(distance[2]);
-        if (mstEdges.size() == nodeCount - 1) {
-            mstEdges.add(graphEdges.get(mstEdges.size()));
-        }
 
         for (Edge edge : mstEdges) {
             outputMessage.append(edge).append("\n");
@@ -96,10 +97,11 @@ public class Kruskal {
     }
 
     private boolean hasAWrongpath() {
-        for (int i = mstEdges.size(); i < Math.min(graphEdges.size(), mstEdges.size() + nodeCount); i++) {
+        for (int i = mstEdges.size(); i < graphEdges.size(); i++) {
             bfsReset();
             BFS(graphEdges.get(i).getVertex1());
             if (distance[graphEdges.get(i).getVertex2()] > graphEdges.get(i).getWeight() && !mstEdges.contains(graphEdges.get(i))) {
+                System.out.println("Fixup wrong path of " + distance[graphEdges.get(i).getVertex2()] + " to " +  graphEdges.get(i).getWeight());
                 mstEdges.add(graphEdges.get(i));
                 return true;
             }
