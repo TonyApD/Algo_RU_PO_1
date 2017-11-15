@@ -41,6 +41,6 @@ public class GraphBuilder {
         }
 
         Kruskal graph = new Kruskal(numberofvertices, graphEdges);
-        return graph.kruskalMST(print);
+        return graph.kruskalMST();
     }
 }
