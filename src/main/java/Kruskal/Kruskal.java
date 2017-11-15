@@ -70,16 +70,16 @@ public class Kruskal {
         }
 
         //mstEdges.add(new Edge(64, 124, 933));
-        if (mstEdges.size() < nodeCount) {
-            for (Edge e : graphEdges) {
-                bfsReset();
-                BFS(e.getVertex1());
-                if (distance[e.getVertex2()] > e.getWeight()) {
-                    mstEdges.add(e);
-                    break;
-                }
-            }
-        }
+//        if (mstEdges.size() < nodeCount) {
+//            for (int i = mstEdges.size(); i < mstEdges.size() + (2 * nodeCount); i++) {
+//                bfsReset();
+//                BFS(graphEdges.get(i).getVertex1());
+//                if (distance[graphEdges.get(i).getVertex2()] > graphEdges.get(i).getWeight()) {
+//                    mstEdges.add(graphEdges.get(i));
+//                    break;
+//                }
+//            }
+//        }
 
 //            for (Edge e : graphEdges) {
 //                dijkstraReset();
