@@ -4,6 +4,8 @@ import java.util.*;
 public class Kruskal {
     private int nodeCount;
     private ArrayList<Edge> graphEdges;
+    private ArrayList<Edge> mstEdges = new ArrayList<>();
+    int distance[];
 
     /**
      * @param nodeCount
@@ -12,6 +14,7 @@ public class Kruskal {
     public Kruskal(int nodeCount, ArrayList<Edge> graphEdges) {
         this.nodeCount = nodeCount;
         this.graphEdges = graphEdges;
+        distance = new int[nodeCount + 1];
     }
 
     /**
@@ -24,7 +27,7 @@ public class Kruskal {
         ArrayList<Edge> possibleEdges = new ArrayList<>();
 
         Collections.sort(graphEdges);
-        ArrayList<Edge> mstEdges = new ArrayList<Edge>();
+
         DisjointSet nodeSet = new DisjointSet(nodeCount + 1);
 
         for (int i = 0; i < graphEdges.size(); i++) {
@@ -45,14 +48,15 @@ public class Kruskal {
                 }
 
             } else if (mstEdges.size() == nodeCount - 1) {
-                for (Edge e : possibleEdges) {
-                    System.out.println(e);
-                }
                 if (!possibleEdges.isEmpty()) {
                     mstEdges.add(possibleEdges.get(0));
                     nodeSet.union(possibleEdges.get(0).getVertex1(), possibleEdges.get(0).getVertex2());
                 } else {
-                    if (tryToFindSubpaths(mstEdges, currentEdge)) break;
+                    bfsReset();
+                    BFS(currentEdge.getVertex1());
+                    if (distance[currentEdge.getVertex2()] != currentEdge.getWeight()) {
+                        possibleEdges.add(currentEdge);
+                    }
                 }
             }
         }
@@ -65,69 +69,64 @@ public class Kruskal {
         return mstEdges;
     }
 
-    private boolean tryToFindSubpaths(ArrayList<Edge> mstEdges, Edge currentEdge) {
-        List<Edge> pathsFromVertex1 = findEdgesFromVertex(mstEdges, currentEdge.getVertex1());
-        List<Edge> pathsFromVertex2 = findEdgesFromVertex(mstEdges, currentEdge.getVertex2());
+    void BFS(int s) {
+        // Mark all the vertices as not visited(By default
+        // set as false)
+        boolean visited[] = new boolean[nodeCount + 1];
 
-        ArrayList<Edge> intersect = (ArrayList<Edge>) getListIntersection(pathsFromVertex1, pathsFromVertex2);
-        if (!intersect.isEmpty()) {
-            if (findEdge(mstEdges, intersect.get(0), currentEdge).getWeight() + findEdge(mstEdges,
-                    intersect.get(0), currentEdge).getWeight() == currentEdge.getWeight()) {
-                //abort don't add
-                return true;
-            }
-        } else {
-            if (thereIsAShorterPathPossible(currentEdge.getWeight(), pathsFromVertex1, pathsFromVertex2)) {
-                //try to find a common vertex from a vertex in a level deeper
-                //tryToFindSubpaths(mstEdges, pathsFromVertex1.get(0));
-            } else {
-                //insert the node since there cannot be two subpaths with a lower or same weight
-                mstEdges.add(currentEdge);
-            }
-        }
-        return false;
-    }
+        // Create a queue for BFS
+        LinkedList<Integer> queue = new LinkedList<>();
 
-    private boolean thereIsAShorterPathPossible(int currentWeight, List<Edge> pathsFromVertex1, List<Edge> pathsFromVertex2) {
-        for (Edge e1 : pathsFromVertex1) {
-            for (Edge e2 : pathsFromVertex2) {
-                if (e1.getWeight() + e2.getWeight() < currentWeight) {
-                    return true;
+        // Mark the current node as visited and enqueue it
+        visited[s] = true;
+        distance[s] = 0;
+        queue.add(s);
+
+        while (queue.size() != 0) {
+            // Dequeue a vertex from queue and print it
+            s = queue.poll();
+            //System.out.print(s + " ");
+
+            // Get all adjacent vertices of the dequeued vertex s
+            // If a adjacent has not been visited, then mark it
+            // visited and enqueue it
+            Iterator<Integer> i = findAdjacentVertices(mstEdges, s).listIterator();
+            while (i.hasNext()) {
+                int n = i.next();
+                if (!visited[n]) {
+                    visited[n] = true;
+                    distance[n] = distance[s] + findEdgeBetween(s, n).getWeight();
+                    queue.add(n);
                 }
             }
         }
-        return false;
     }
 
-    private List<Edge> findEdgesFromVertex(List<Edge> mstEdges, int vertex) {
-        List<Edge> returnList = new ArrayList<>();
-        for (Edge e : mstEdges) {
-            if (e.getVertex1() == vertex || e.getVertex2() == vertex) {
-                returnList.add(e);
-            }
+    private void bfsReset() {
+        for (int i = 0; i <= nodeCount; i++) {
+            distance[i] = 0;
         }
-        return returnList;
     }
 
-    private Edge findEdge(List<Edge> mstEdges, Edge edge, Edge vertex2) {
+    private Edge findEdgeBetween(int s, int n) {
         for (Edge e : mstEdges) {
-            if ((e.getVertex1() == edge.getVertex1() && e.getVertex2() == vertex2.getVertex2()) ||
-                    (e.getVertex1() == edge.getVertex2() && e.getVertex2() == vertex2.getVertex1())) {
+            if ((e.getVertex1() == s && e.getVertex2() == n) || (e.getVertex2() == s && e.getVertex1() == n)) {
                 return e;
             }
         }
         return null;
     }
 
-    private List<Edge> getListIntersection(List<Edge> list1, List<Edge> list2) {
-        List list = new ArrayList();
-
-        for (Edge t : list1) {
-            if (list2.contains(t)) {
-                list.add(t);
+    private List<Integer> findAdjacentVertices(List<Edge> mstEdges, int vertex) {
+        List<Integer> returnList = new ArrayList<>();
+        for (Edge e : mstEdges) {
+            if (e.getVertex1() == vertex) {
+                returnList.add(e.getVertex2());
+            } else if (e.getVertex2() == vertex) {
+                returnList.add(e.getVertex1());
             }
         }
-
-        return list;
+        return returnList;
     }
+
 }
