@@ -45,15 +45,13 @@ public class Kruskal {
                 }
 
             } else if (mstEdges.size() == nodeCount - 1) {
+                for (Edge e : possibleEdges) {
+                    System.out.println(e);
+                }
                 if (!possibleEdges.isEmpty()) {
-                    if (!mstEdges.contains(possibleEdges.get(0))) {
-                        //System.out.println("Possible edges: " + possibleEdges.size());
-                        mstEdges.add(possibleEdges.get(0));
-                        nodeSet.union(possibleEdges.get(0).getVertex1(), possibleEdges.get(0).getVertex2());
-                        possibleEdges.remove(possibleEdges.get(0));
-                    }
+                    mstEdges.add(possibleEdges.get(0));
+                    nodeSet.union(possibleEdges.get(0).getVertex1(), possibleEdges.get(0).getVertex2());
                 } else {
-                    //System.out.println("Current edge: " + currentEdge.toString());
                     if (tryToFindSubpaths(mstEdges, currentEdge)) break;
                 }
             }
@@ -82,12 +80,9 @@ public class Kruskal {
             if (thereIsAShorterPathPossible(currentEdge.getWeight(), pathsFromVertex1, pathsFromVertex2)) {
                 //try to find a common vertex from a vertex in a level deeper
                 //tryToFindSubpaths(mstEdges, pathsFromVertex1.get(0));
-                return true;
             } else {
                 //insert the node since there cannot be two subpaths with a lower or same weight
-                if (mstEdges.size() < nodeCount) {
-                    mstEdges.add(currentEdge);
-                }
+                mstEdges.add(currentEdge);
             }
         }
         return false;
@@ -96,7 +91,7 @@ public class Kruskal {
     private boolean thereIsAShorterPathPossible(int currentWeight, List<Edge> pathsFromVertex1, List<Edge> pathsFromVertex2) {
         for (Edge e1 : pathsFromVertex1) {
             for (Edge e2 : pathsFromVertex2) {
-                if (e1.getWeight() + e2.getWeight() < currentWeight ) {
+                if (e1.getWeight() + e2.getWeight() < currentWeight) {
                     return true;
                 }
             }
