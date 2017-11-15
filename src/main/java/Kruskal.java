@@ -54,7 +54,8 @@ public class Kruskal {
                     }
                 } else {
                     //System.out.println("Current edge: " + currentEdge.toString());
-                    if (tryToFindSubpaths(mstEdges, currentEdge)) break;
+                    //dijkstra(currentEdge.getVertex1());
+                    //if (tryToFindSubpaths(mstEdges, currentEdge)) break;
                 }
             }
         }
@@ -67,7 +68,47 @@ public class Kruskal {
         return mstEdges;
     }
 
-    private boolean tryToFindSubpaths(ArrayList<Edge> mstEdges, Edge currentEdge) {
+//    private void BFS(List<Edge> mstEdges, int start) {
+//        Queue<Integer> queue = new PriorityQueue();
+//        queue.add(start);
+//        while (!queue.isEmpty()) {
+//            int u = queue.remove();
+//            for (Vertex e : findAdjacentVertices(mstEdges, u)){
+////                if (e.) check adjacencies for color
+//
+//            }
+//        }
+//    }
+
+//    public void dijkstra(int startname) {
+//        PriorityQueue<Path> queue = new PriorityQueue<>();
+//        Vertex start = new Vertex(String.valueOf(startname));
+//        start.setDist(0);
+//        queue.add(new Path(start, 0));
+//        int nodesSeen = 0;
+//
+//        while (!queue.isEmpty() && nodesSeen < nodeCount) {
+//            Path p = queue.remove();
+//            nodesSeen++;
+//            for (Edge edge : p.getDest().getAdjacencies()) {
+//                if (edge.getWeight() < 0) {
+//                    return;
+//                }
+//
+//                Vertex destination = new Vertex(String.valueOf(edge.getVertex2()));
+//                if (destination.getDist() > p.getDest().getDist() + edge.getWeight() || destination.getDist() == Double.MAX_VALUE) {
+//                    destination.setDist(p.getDest().getDist() + edge.getWeight());
+//                    destination.setPrev(p.getDest());
+//                    queue.add(new Path(destination, destination.getDist()));
+//                }
+//
+//            }
+//        }
+//
+//
+//    }
+
+    private boolean tryToFindSubpaths(List<Edge> mstEdges, Edge currentEdge) {
         List<Edge> pathsFromVertex1 = findEdgesFromVertex(mstEdges, currentEdge.getVertex1());
         List<Edge> pathsFromVertex2 = findEdgesFromVertex(mstEdges, currentEdge.getVertex2());
 
@@ -81,7 +122,19 @@ public class Kruskal {
         } else {
             if (thereIsAShorterPathPossible(currentEdge.getWeight(), pathsFromVertex1, pathsFromVertex2)) {
                 //try to find a common vertex from a vertex in a level deeper
-                //tryToFindSubpaths(mstEdges, pathsFromVertex1.get(0));
+                pathsFromVertex1.remove(currentEdge);
+                pathsFromVertex2.remove(currentEdge);
+                for (Edge e : pathsFromVertex1) {
+                     if(tryToFindSubpaths(pathsFromVertex2, e)) {
+                         return true;
+                     }
+                }
+                for (Edge e : pathsFromVertex2) {
+                    if(tryToFindSubpaths(pathsFromVertex1, e)) {
+                        return true;
+                    }
+                }
+
                 return true;
             } else {
                 //insert the node since there cannot be two subpaths with a lower or same weight
@@ -94,14 +147,18 @@ public class Kruskal {
     }
 
     private boolean thereIsAShorterPathPossible(int currentWeight, List<Edge> pathsFromVertex1, List<Edge> pathsFromVertex2) {
+        boolean shorterPathPossible = false;
         for (Edge e1 : pathsFromVertex1) {
             for (Edge e2 : pathsFromVertex2) {
-                if (e1.getWeight() + e2.getWeight() < currentWeight ) {
-                    return true;
+                if ((e1.getVertex1() == e2.getVertex1() && e1.getWeight() + e2.getWeight() == currentWeight) || (e1.getVertex1() == e2.getVertex2() && e1.getWeight() + e2.getWeight() == currentWeight)
+                        || (e1.getVertex2() == e2.getVertex1() && e1.getWeight() + e2.getWeight() == currentWeight) || (e1.getVertex2() == e2.getVertex2() && e1.getWeight() + e2.getWeight() == currentWeight)) {
+                    return false;
+                } else if (e1.getWeight() + e2.getWeight() < currentWeight) {
+                    shorterPathPossible = true;
                 }
             }
         }
-        return false;
+        return shorterPathPossible;
     }
 
     private List<Edge> findEdgesFromVertex(List<Edge> mstEdges, int vertex) {
@@ -109,6 +166,18 @@ public class Kruskal {
         for (Edge e : mstEdges) {
             if (e.getVertex1() == vertex || e.getVertex2() == vertex) {
                 returnList.add(e);
+            }
+        }
+        return returnList;
+    }
+
+    private List<Integer> findAdjacentVertices(List<Edge> mstEdges, int vertex) {
+        List<Integer> returnList = new ArrayList<>();
+        for (Edge e : mstEdges) {
+            if (e.getVertex1() == vertex) {
+                returnList.add(e.getVertex2());
+            } else if (e.getVertex2() == vertex) {
+                returnList.add(e.getVertex1());
             }
         }
         return returnList;
