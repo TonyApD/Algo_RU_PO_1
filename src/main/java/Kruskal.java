@@ -5,12 +5,8 @@ public class Kruskal {
     private int nodeCount;
     private ArrayList<Edge> graphEdges;
     private ArrayList<Edge> mstEdges = new ArrayList<>();
-    int distance[];
+    private int distance[];
 
-    /**
-     * @param nodeCount
-     * @param graphEdges
-     */
     public Kruskal(int nodeCount, ArrayList<Edge> graphEdges) {
         this.nodeCount = nodeCount;
         this.graphEdges = graphEdges;
@@ -18,6 +14,11 @@ public class Kruskal {
     }
 
     /**
+     * Our implementation of Kruskal's algorithm
+     * Something needed here?
+     *
+     *
+     *
      * @return
      */
     List<Edge> kruskalMST() {
@@ -77,27 +78,33 @@ public class Kruskal {
         return mstEdges;
     }
 
+    /**
+     * Our implementation of BFS
+     * Mark all the vertices as not visited(By default set as false)
+     * Create a queue for BFS
+     * Mark the current node as visited and enqueue it
+     *
+     * Dequeue a vertex from queue and print it
+
+     * Get all adjacent vertices of the dequeued vertex s
+     * If a adjacent has not been visited, then mark it
+     * visited and enqueue it
+     *
+     * @param s
+     */
     void BFS(int s) {
-        // Mark all the vertices as not visited(By default
-        // set as false)
         boolean visited[] = new boolean[nodeCount + 1];
 
-        // Create a queue for BFS
         LinkedList<Integer> queue = new LinkedList<>();
 
-        // Mark the current node as visited and enqueue it
         visited[s] = true;
         distance[s] = 0;
         queue.add(s);
 
         while (queue.size() != 0) {
-            // Dequeue a vertex from queue and print it
             s = queue.poll();
-            //System.out.print(s + " ");
 
-            // Get all adjacent vertices of the dequeued vertex s
-            // If a adjacent has not been visited, then mark it
-            // visited and enqueue it
+
             Iterator<Integer> i = findAdjacentVertices(mstEdges, s).listIterator();
             while (i.hasNext()) {
                 int n = i.next();

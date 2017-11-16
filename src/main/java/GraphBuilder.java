@@ -16,6 +16,13 @@ import java.util.Scanner;
  */
 class GraphBuilder {
 
+    /**
+     * Our graph builder implementation
+     *
+     *
+     * @return
+     * @throws FileNotFoundException
+     */
     static List<Edge> execute() throws FileNotFoundException {
         int numberofvertices;
         ArrayList<Edge> graphEdges;        //edge list, not adjacency list
