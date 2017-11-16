@@ -93,7 +93,8 @@ After running this algorithm we are left with the resulting graph with the same 
 In this section we will discuss the Correctness of the processes.
 
 \subsubsection{Load and transform input}
-\subsubsection{Algorithm}
+\subsubsection{Building the MST}
+\subsubsection{Fixing the last edge}
 \subsubsection{Writing output}
 
 \subsection{Complexity}
@@ -111,7 +112,8 @@ The input is being imported from the \textbf{stdin}. A scanner scans the lines t
 
 \subsubsection{Building the MST}
 
-\subsubsection{Fixup step} The fixup step first saves the next edge in the list for the case it doesn't matter which edge we add. Then it checks whether there was a minimum-weight edge cycle. If so, then it adds this edge. Both operations take $\bigO{1}$, since there is only there is only one check being performed and if it's true an operation that's only performed once.
+\subsubsection{Fixing the last edge}
+The fixup step first saves the next edge in the list for the case it doesn't matter which edge we add. Then it checks whether there was a minimum-weight edge cycle. If so, then it adds this edge. Both operations take $\bigO{1}$, since there is only there is only one check being performed and if it's true an operation that's only performed once.
 
 After these steps there is a check whether the paths in the tree correspond to the original paths of the matrix. In order to calculate the paths between a pair of vertices we make use of BFS. Before we execute BFS, we make sure we reset any possible results of an earlier execution. This reset has a Complexity of $\bigO{n + 1}$, since the list has a distance to other vertices.
 
