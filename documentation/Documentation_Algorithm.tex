@@ -94,6 +94,50 @@ In this section we will discuss the Correctness of the processes.
 
 \paragraph{Import input}
 \subsection{Algorithm}
+In this subsection we will look at the proof for our implementation of Kruskals algorithm which we use to find the MST. We've used the proof given by Christopher Hanusa at City University as this perfectly fits in our usecase.
+\newline
+\newline
+\textbf{Theorem.} After running Kruskal’s algorithm on a connected weighted graph G, its output T is a
+minimum weight spanning tree.
+\newline
+\newline
+\textbf{Proof.} First, T is a spanning tree. This is because:
+\begin{itemize}
+  \item \textbf{T is a forest.} No cycles are ever created
+  \item \textbf{T is spanning.} Suppose that there is a vertex v that is not incident with the edges of T.
+Then the incident edges of v must have been considered in the algorithm at some step. The
+first edge (in edge order) would have been included because it could not have created a cycle,
+which contradicts the definition of T.
+  \item \textbf{T is connected.} Suppose that T is not connected. Then T has two or more connected
+components. Since G is connected, then these components must be connected by some edges
+in G, not in T. The first of these edges (in edge order) would have been included in T because
+it could not have created a cycle, which contradicts the definition of T.
+\end{itemize}
+Second, T is a spanning tree of minimum weight. We will prove this using induction. Let $T^1$ be a
+minimum-weight spanning tree. If T = $T^1$, then T is a minimum weight spanning tree. If $T = T^1$,
+then there exists an edge e $\in$ $T^1$ of minimum weight that is not in T. Further, $T \cup e$ contains a
+cycle C such that:
+\begin{itemize}
+  \item Every edge in C has weight less than wt (e). (This follows from how the algorithm constructed
+T.)
+  \item There is some edge f in C that is not in $T^1$. (Because $T^1$ does not contain the cycle C.)
+\end{itemize}
+Consider the tree $T2 = T / {e}\cup{f}:$
+\begin{itemize}
+  \item $T^2$ is a spanning tree.
+  \item $T^2$ has more edges in common with $T^1$ than T did.
+  \item And $wt(T^2)$ $\geqq $ $wt(T)$. (We exchanged an edge for one that is no more expensive.)
+\end{itemize}
+We can redo the same process with $T^2$ to find a spanning tree $T^3$ with more edges in common with
+$T^1$. By induction, we can continue this process until we reach $T^1$, from which we see
+\newline
+\newline
+$wt (T) \leqq wt (T^2) \leqq wt (T^3) \leqq \cdot \cdot \cdot \leqq wt (T^1).$
+\newline
+\newline
+Since $T^1$ is a minimum weight spanning tree, then these inequalities must be equalities and we
+conclude that T is a minimum weight spanning tree.
+
 \subsection{Writing output}
 
 \subsection{Complexity}
@@ -112,5 +156,10 @@ The input is being imported from the \textbf{stdin}. A scanner scans the lines t
 
 \paragraph{Writing output}
 The complexity of writing the output is $\bigO{n}$. The array with edges will only contain $n$ elements which are iterated and printed.
+
+\section{Reference}
+
+Christopher Hanusa, (2015). Proof of Kruskal’s Algorithm. \newline
+http://people.qc.cuny.edu/faculty/christopher.hanusa/courses/634sp12/Documents/KruskalProof.pdf
 
 \end{document}
