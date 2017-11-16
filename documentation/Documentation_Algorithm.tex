@@ -92,9 +92,9 @@ After running this algorithm we are left with the resulting graph with the same 
 \subsection{Correctness}
 In this section we will discuss the Correctness of the processes.
 
-\paragraph{Load and transform input}
-\subsection{Algorithm}
-\subsection{Writing output}
+\subsubsection{Load and transform input}
+\subsubsection{Algorithm}
+\subsubsection{Writing output}
 
 \subsection{Complexity}
 In this section we will give an analysis of the complex of the alorithm. We will give the complexity for each part of the alogorithm and discuss these in detail. After this, the complexity of the total algorithm following from the subprocesses will be given. The complexities for the subprocesses are as follows.
@@ -106,18 +106,18 @@ In this section we will give an analysis of the complex of the alorithm. We will
   \item Total algorithm $\bigO{n^2}$
 \end{itemize}
 
-\paragraph{Load and transform input}
+\subsubsection{Load and transform input}
 The input is being imported from the \textbf{stdin}. A scanner scans the lines till they reach the value of the city to itself and skips the rest of the line. In this way only the bottom of the matrix is read. Since the number of constellations is one number this is a constrant the detailed complexity of the importing of the data is $\bigO{\frac{1}{2}n^2 - \frac{1}{2}n + 1}$. Since the first part depends on $n^2$ the complexity of the importing process is $\bigO{n^2}$.
 
-\paragraph{Building the MST}
+\subsubsection{Building the MST}
 
-\paragraph{Fixup step} The fixup step first saves the next edge in the list for the case it doesn't matter which edge we add. Then it checks whether there was a minimum-weight edge cycle. If so, then it adds this edge. Both operations take $\bigO{1}$, since there is only there is only one check being performed and if it's true an operation that's only performed once.
+\subsubsection{Fixup step} The fixup step first saves the next edge in the list for the case it doesn't matter which edge we add. Then it checks whether there was a minimum-weight edge cycle. If so, then it adds this edge. Both operations take $\bigO{1}$, since there is only there is only one check being performed and if it's true an operation that's only performed once.
 
 After these steps there is a check whether the paths in the tree correspond to the original paths of the matrix. In order to calculate the paths between a pair of vertices we make use of BFS. Before we execute BFS, we make sure we reset any possible results of an earlier execution. This reset has a Complexity of $\bigO{n + 1}$, since the list has a distance to other vertices.
 
 After this reset we perform BFS. BFS self has a complexity of $\bigO{|V| + |E|}$ which is linear. However to find the adjacencies of a vertex in the mst, we iterate through all edges. These adjacencies are necessary for BFS. Because of this search the total running time of BFS-execution will be $\bigO{n \cdot (|V| + |E|)}$ which is equal to $\bigO{n^2}$.
 
-\paragraph{Writing output}
+\subsubsection{Writing output}
 The complexity of writing the output is $\bigO{n}$. The array with edges will only contain $n$ elements which are iterated and printed.
 
 \end{document}
