@@ -92,7 +92,9 @@ After running this algorithm we are left with the resulting graph with the same 
 \subsection{Correctness}
 In this section we will discuss the Correctness of the processes.
 
-\paragraph{Import input}
+\subsubsection{Load and transform input}
+Since the edges are undirected, the graph will always be symmetric like shown in table~\ref{table:T1}. This means that only in all cases one half of the graph will contain the same information as the other, because the edge $u \to v$ is equal to the edge $v \to u$. This means that importing the half matrix gives the same info as importing the whole matrix which makes this process correct.
+
 \subsection{Algorithm}
 In this subsection we will look at the proof for our implementation of Kruskals algorithm which we use to find the MST. We've used the proof given by Christopher Hanusa at City University as this perfectly fits in our usecase.
 \newline
@@ -138,12 +140,10 @@ $wt (T) \leqq wt (T^2) \leqq wt (T^3) \leqq \cdot \cdot \cdot \leqq wt (T^1).$
 Since $T^1$ is a minimum weight spanning tree, then these inequalities must be equalities and we
 conclude that T is a minimum weight spanning tree.
 
-\subsection{Writing output}
-
-\subsubsection{Load and transform input}
-\subsubsection{Building the MST}
 \subsubsection{Fixing the last edge}
+
 \subsubsection{Writing output}
+Since the algorithm already makes sure there are n edges in the list, there will be printed n lines. By modifying the $toString$ method of the Edge objects the output corresponds to the given requirements.
 
 \subsection{Complexity}
 In this section we will give an analysis of the complex of the alorithm. We will give the complexity for each part of the alogorithm and discuss these in detail. After this, the complexity of the total algorithm following from the subprocesses will be given. The complexities for the subprocesses are as follows.
