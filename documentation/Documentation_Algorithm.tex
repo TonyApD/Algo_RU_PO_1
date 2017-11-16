@@ -31,19 +31,19 @@
 \tableofcontents
 
 \newpage
-\section{Explenation}
+\section{Explanation}
 In this chapter we will explain the processes that take place in the algorithm. The algorithm can be split into multiple processes. The three main processes the algorithm performs are:
-\begin{itemize}
-  \item Import input
+\begin{enumerate}
+  \item Load and transform input
   \item Algorithm
   \item Writing output
-\end{itemize}
+\end{enumerate}
 
 \subsection{Import input}
-The input contains a number of constellations $n$ and a matrix of $n \cdot n$. This number can be used to identify the size of the matrix and help with the import. This number may also be used to check whether the lines of the output are equal to the constellations, so we save this value.
+The input contains a number of constellations $n$ and a matrix of $n \cdot n$. This number can be used to identify the size of the matrix and help with the import. This number may also be used to check whether the lines of the output are equal to the constellations, so we save this value in a local variable.
 
 An example of a matrix with 4 constellations can be seen in table~\ref{table:T1}. We can see that the table is symmetric since the path between two cities may be also taken the other way. We also see that there is no path from a city to itself. This means that a half of the matrix should give enough information, so we may only import the half of the matrix.  The \textbf{stdin} in java reads lines from the start which makes reading the bottom of the matrix a better option than the top. The values that are read in this case are marked red in table~\ref{table:T1}.
-
+\newline
 \begin{table}[h]
   \begin{center}
     \begin{tabular}{c | c | c | c}
@@ -56,6 +56,7 @@ An example of a matrix with 4 constellations can be seen in table~\ref{table:T1}
   \end{center}
 \end{table}
 \vspace{-0,5cm}
+
 For all the values that are read in the input an edge in the graph is created with the cost of the path. After the input is fully read, we have a graph with an edge between each pair of cities as result.
 
 \newpage
@@ -78,7 +79,7 @@ After doing so, we found that finding the MST is not good enough. for example in
 
 \newpage
 \section{Writing output}
-The algorithm resulted in a graph with the same number of edges as there are constellations. These edges are saved in an array over which we can iterate and print the edge to the console. In the Edge class the $toString$ method is modified to print according to the guidelines.
+After running this algorithm we are left with the resulting graph with the same number of edges as there are constellations/cities. These edges are saved in an array over which we can iterate and print the edge to the sdout. In the Edge class the is a $toString$ method that is modified to print according to the guidelines.
 
 \newpage
 \section{Analysis}
