@@ -58,8 +58,26 @@ An example of a matrix with 4 constellations can be seen in table~\ref{table:T1}
 \vspace{-0,5cm}
 For all the values that are read in the input an edge in the graph is created with the cost of the path. After the input is fully read, we have a graph with an edge between each pair of cities as result.
 
-\subsection{Algorithm}
-\subsection{Writing output}
+\newpage
+\section{Algorithm}
+\subsection{Building the Minimum spanning Tree}
+After going through the graph building step based on the adjaceny matrix we are left with a connected and undirected graph to work with. Given that connected and undirected graph, a spanning tree of that graph is a subgraph that is a tree and connects all the vertices together. A single graph can have many different spanning trees. A minimum spanning tree (MST) or minimum weight spanning tree for a weighted, connected and undirected graph is a spanning tree with weight less than or equal to the weight of every other spanning tree. The weight of a spanning tree is the sum of weights given to each edge of the spanning tree.
+\newline
+\newline
+The MST step is perfect for our solution since we want the minimum amount of roads to connect the cities together. After experimenting a bit we choose to use the algorithm of Kruskal for finding the MST. Kruskals algorithm goes through the following steps to find the MST:
+\begin{enumerate}
+  \item Sort all the edges in non-decreasing order of their weight.
+  \item Pick the smallest edge. Check if it forms a cycle with the spanning tree formed so far. If cycle is not formed, include this edge. Else, discard it.
+  \item Repeat step 2 until there are (V-1) edges in the spanning tree.
+\end{enumerate}
+
+After doing so, we found that finding the MST is not good enough. for example in the first inputfile $``a_1.in''$ we have four cities so we expect to have four resulting edges between the cities. In our resulting MST however, we will of course find three edges. The following problem consists of finding an edge that we can add to our resulting list of edges until we have an amount of edges that is equal to the amount of cities.
+
+\subsection{Fixing the last few edges}
+@tony writes something here?
+
+\newpage
+\section{Writing output}
 The algorithm resulted in a graph with the same number of edges as there are constellations. These edges are saved in an array over which we can iterate and print the edge to the console. In the Edge class the $toString$ method is modified to print according to the guidelines.
 
 \newpage
