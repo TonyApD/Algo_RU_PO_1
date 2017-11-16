@@ -39,7 +39,7 @@ In this chapter we will explain the processes that take place in the algorithm. 
   \item Writing output
 \end{enumerate}
 
-\subsection{Import input}
+\subsection{Load and transform input}
 The input contains a number of constellations $n$ and a matrix of $n \cdot n$. This number can be used to identify the size of the matrix and help with the import. This number may also be used to check whether the lines of the output are equal to the constellations, so we save this value in a local variable.
 
 An example of a matrix with 4 constellations can be seen in table~\ref{table:T1}. We can see that the table is symmetric since the path between two cities may be also taken the other way. We also see that there is no path from a city to itself. This means that a half of the matrix should give enough information, so we may only import the half of the matrix.  The \textbf{stdin} in java reads lines from the start which makes reading the bottom of the matrix a better option than the top. The values that are read in this case are marked red in table~\ref{table:T1}.
@@ -77,7 +77,7 @@ After doing so, we found that finding the MST is not good enough. for example in
 \subsubsection{Fixing the last edge}
 Since Kruskal results a tree graph, we will only have one path between every pair of vertices. This means we don’t meet the property of n edges in the graph, since then there should be two paths between at least one pair of vertices. This means we should add one more edge in the tree.
 
-There may be two cases possible. The first case is that the extra edge is officially redundant and it doesn’t matter which edge we add to the output.
+There may be two cases possible. The first case is that the extra edge is officially redundant and it doesn’t matter which edge we add to the output. In the case that the last edge doesn't matter we pick the next edge in the list.
 
 The second case is that a path between two vertices is longer than it was in the input. In this case we should check which edge should be added tot he output to make the lengths of the paths correct again. After running some checks we found out that the edge we should add is the edge with the lowest weigth where the path tot he vertices is incorrect without it. All longer incorrect paths depend on this edge. In order to find out which paths are incorrect we make use of BFS to calculate the distances between edges. Since the tree has only one path between each pair of vertices, BFS will always give the shortest path.
 
@@ -140,21 +140,34 @@ conclude that T is a minimum weight spanning tree.
 
 \subsection{Writing output}
 
+\subsubsection{Load and transform input}
+\subsubsection{Building the MST}
+\subsubsection{Fixing the last edge}
+\subsubsection{Writing output}
+
 \subsection{Complexity}
 In this section we will give an analysis of the complex of the alorithm. We will give the complexity for each part of the alogorithm and discuss these in detail. After this, the complexity of the total algorithm following from the subprocesses will be given. The complexities for the subprocesses are as follows.
 \begin{itemize}
   \item Import input $\bigO{n^2}$
-  \item Algorithm - \textbf{eventueel opsplitsen in meerdere processen?}
+  \item Algorithm $\bigO{E log E}$ - \textbf{Complexity van kruskal volgens wikipedia}
+  \item Fixup step $\bigO{n^2}$
   \item Writing output $O(n)$
-  \item Total algorithm $\bigO{n^2}$ - \textbf{ik gok dit alvast omdat ik denk dat verder niets een hogere complexiteit heeft?}
+  \item Total algorithm $\bigO{n^2}$
 \end{itemize}
 
-\paragraph{Import input}
+\subsubsection{Load and transform input}
 The input is being imported from the \textbf{stdin}. A scanner scans the lines till they reach the value of the city to itself and skips the rest of the line. In this way only the bottom of the matrix is read. Since the number of constellations is one number this is a constrant the detailed complexity of the importing of the data is $\bigO{\frac{1}{2}n^2 - \frac{1}{2}n + 1}$. Since the first part depends on $n^2$ the complexity of the importing process is $\bigO{n^2}$.
 
-\paragraph{Algorithm}
+\subsubsection{Building the MST}
 
-\paragraph{Writing output}
+\subsubsection{Fixing the last edge}
+The fixup step first saves the next edge in the list for the case it doesn't matter which edge we add. Then it checks whether there was a minimum-weight edge cycle. If so, then it adds this edge. Both operations take $\bigO{1}$, since there is only there is only one check being performed and if it's true an operation that's only performed once.
+
+After these steps there is a check whether the paths in the tree correspond to the original paths of the matrix. In order to calculate the paths between a pair of vertices we make use of BFS. Before we execute BFS, we make sure we reset any possible results of an earlier execution. This reset has a Complexity of $\bigO{n + 1}$, since the list has a distance to other vertices.
+
+After this reset we perform BFS. BFS self has a complexity of $\bigO{|V| + |E|}$ which is linear. However to find the adjacencies of a vertex in the mst, we iterate through all edges. These adjacencies are necessary for BFS. Because of this search the total running time of BFS-execution will be $\bigO{n \cdot (|V| + |E|)}$ which is equal to $\bigO{n^2}$.
+
+\subsubsection{Writing output}
 The complexity of writing the output is $\bigO{n}$. The array with edges will only contain $n$ elements which are iterated and printed.
 
 \section{Reference}
