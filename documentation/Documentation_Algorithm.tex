@@ -95,7 +95,7 @@ In this section we will discuss the Correctness of the processes.
 \subsubsection{Load and transform input}
 Since the edges are undirected, the graph will always be symmetric like shown in table~\ref{table:T1}. This means that only in all cases one half of the graph will contain the same information as the other, because the edge $u \to v$ is equal to the edge $v \to u$. This means that importing the half matrix gives the same info as importing the whole matrix which makes this process correct.
 
-\subsection{Algorithm}
+\subsubsection{Building the MST}
 In this subsection we will look at the proof for our implementation of Kruskals algorithm which we use to find the MST. We've used the proof given by Christopher Hanusa at City University as this perfectly fits in our usecase.
 \newline
 \newline
@@ -141,6 +141,9 @@ Since $T^1$ is a minimum weight spanning tree, then these inequalities must be e
 conclude that T is a minimum weight spanning tree.
 
 \subsubsection{Fixing the last edge}
+In this process there are as described two options possible. The first option is that it doesn't matter which edge we add as last to the graph. In this case any edge will be correct.
+
+In the case that a specific edge needs to be added, we should insert the correct one. Since the MST skips an edge when a cycle is detected, we will have that there misses an important edge when there's a cycle with edges of the minumum weight. So, when this happens, we store this edge and add it to the output. In the case that there was no such cycle, we should check whether the distances between two edges are correct. We will do this for the remaining edges in an incrementing order for the weigth. The reason for this is that the incorrect path with the least weight have another incorrect path as subpath, so no other edge could fix this path. In order to find the distance we make use of BFS. Since the graph is a tree structure the found paths will be the shortest paths, since it are the only paths.
 
 \subsubsection{Writing output}
 Since the algorithm already makes sure there are n edges in the list, there will be printed n lines. By modifying the $toString$ method of the Edge objects the output corresponds to the given requirements.
@@ -170,6 +173,7 @@ After this reset we perform BFS. BFS self has a complexity of $\bigO{|V| + |E|}$
 \subsubsection{Writing output}
 The complexity of writing the output is $\bigO{n}$. The array with edges will only contain $n$ elements which are iterated and printed.
 
+\newpage
 \section{Reference}
 
 Christopher Hanusa, (2015). Proof of Kruskal’s Algorithm. \newline
