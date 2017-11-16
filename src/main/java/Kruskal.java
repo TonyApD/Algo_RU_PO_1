@@ -25,6 +25,7 @@ public class Kruskal {
         int lowestWeigth = 0;
         StringBuilder outputMessage = new StringBuilder();
         ArrayList<Edge> possibleEdges = new ArrayList<>();
+        Edge possibleLastEdge = null;
 
         Collections.sort(graphEdges);
 
@@ -48,6 +49,9 @@ public class Kruskal {
                 }
 
             } else if (mstEdges.size() == nodeCount - 1) {
+                if (possibleLastEdge == null) {
+                    possibleLastEdge = currentEdge;
+                }
                 if (!possibleEdges.isEmpty()) {
                     mstEdges.add(possibleEdges.get(0));
                     nodeSet.union(possibleEdges.get(0).getVertex1(), possibleEdges.get(0).getVertex2());
@@ -55,10 +59,14 @@ public class Kruskal {
                     bfsReset();
                     BFS(currentEdge.getVertex1());
                     if (distance[currentEdge.getVertex2()] != currentEdge.getWeight()) {
-                        possibleEdges.add(currentEdge);
+                        mstEdges.add(currentEdge);
                     }
                 }
             }
+        }
+
+        if (mstEdges.size() == nodeCount - 1) {
+            mstEdges.add(possibleLastEdge);
         }
 
         for (Edge edge : mstEdges) {
