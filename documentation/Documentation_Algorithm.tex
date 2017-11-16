@@ -60,8 +60,8 @@ An example of a matrix with 4 constellations can be seen in table~\ref{table:T1}
 For all the values that are read in the input an edge in the graph is created with the cost of the path. After the input is fully read, we have a graph with an edge between each pair of cities as result.
 
 \newpage
-\section{Algorithm}
-\subsection{Building the Minimum spanning Tree}
+\subsection{Algorithm}
+\subsubsection{Building the Minimum spanning Tree}
 After going through the graph building step based on the adjaceny matrix we are left with a connected and undirected graph to work with. Given that connected and undirected graph, a spanning tree of that graph is a subgraph that is a tree and connects all the vertices together. A single graph can have many different spanning trees. A minimum spanning tree (MST) or minimum weight spanning tree for a weighted, connected and undirected graph is a spanning tree with weight less than or equal to the weight of every other spanning tree. The weight of a spanning tree is the sum of weights given to each edge of the spanning tree.
 \newline
 \newline
@@ -74,11 +74,16 @@ The MST step is perfect for our solution since we want the minimum amount of roa
 
 After doing so, we found that finding the MST is not good enough. for example in the first inputfile $``a_1.in''$ we have four cities so we expect to have four resulting edges between the cities. In our resulting MST however, we will of course find three edges. The following problem consists of finding an edge that we can add to our resulting list of edges until we have an amount of edges that is equal to the amount of cities.
 
-\subsection{Fixing the last few edges}
-@tony writes something here?
+\subsubsection{Fixing the last edge}
+Since Kruskal results a tree graph, we will only have one path between every pair of vertices. This means we don’t meet the property of n edges in the graph, since then there should be two paths between at least one pair of vertices. This means we should add one more edge in the tree.
 
-\newpage
-\section{Writing output}
+There may be two cases possible. The first case is that the extra edge is officially redundant and it doesn’t matter which edge we add to the output.
+
+The second case is that a path between two vertices is longer than it was in the input. In this case we should check which edge should be added tot he output to make the lengths of the paths correct again. After running some checks we found out that the edge we should add is the edge with the lowest weigth where the path tot he vertices is incorrect without it. All longer incorrect paths depend on this edge. In order to find out which paths are incorrect we make use of BFS to calculate the distances between edges. Since the tree has only one path between each pair of vertices, BFS will always give the shortest path.
+
+In some cases Kruskal thrown out an edge in a circle of edges with the smallest weigth. In this situation there is no other equal path possible between the vertices, since the edge between them was the shortest possible. In this case, we save this edge to a list and add it as the last edge in the output.
+
+\subsection{Writing output}
 After running this algorithm we are left with the resulting graph with the same number of edges as there are constellations/cities. These edges are saved in an array over which we can iterate and print the edge to the sdout. In the Edge class the is a $toString$ method that is modified to print according to the guidelines.
 
 \newpage
