@@ -1,8 +1,5 @@
 package Kruskal;
 
-
-import Utils.Path;
-
 import java.util.*;
 
 public class Kruskal {
@@ -10,7 +7,6 @@ public class Kruskal {
     private ArrayList<Edge> graphEdges;
     private ArrayList<Edge> mstEdges = new ArrayList<>();
     int distance[];
-    boolean visited[];
 
     /**
      * @param nodeCount
@@ -20,7 +16,6 @@ public class Kruskal {
         this.nodeCount = nodeCount;
         this.graphEdges = graphEdges;
         distance = new int[nodeCount + 1];
-        visited = new boolean[nodeCount + 1];
     }
 
     /**
@@ -31,6 +26,7 @@ public class Kruskal {
         int lowestWeigth = 0;
         StringBuilder outputMessage = new StringBuilder();
         ArrayList<Edge> possibleEdges = new ArrayList<>();
+        Edge possibleLastEdge = null;
 
         Collections.sort(graphEdges);
 
@@ -54,46 +50,24 @@ public class Kruskal {
                 }
 
             } else if (mstEdges.size() == nodeCount - 1) {
+                if (possibleLastEdge == null) {
+                    possibleLastEdge = currentEdge;
+                }
                 if (!possibleEdges.isEmpty()) {
                     mstEdges.add(possibleEdges.get(0));
                     nodeSet.union(possibleEdges.get(0).getVertex1(), possibleEdges.get(0).getVertex2());
                 } else {
-                    //bfsReset();
-                    //BFS(currentEdge.getVertex1());
-//                    dijkstraReset();
-//                    dijkstra(currentEdge.getVertex1());
-//                    if (distance[currentEdge.getVertex2()] != currentEdge.getWeight()) {
-//                        mstEdges.add(currentEdge);
-//                    }
+                    bfsReset();
+                    BFS(currentEdge.getVertex1());
+                    if (distance[currentEdge.getVertex2()] != currentEdge.getWeight()) {
+                        mstEdges.add(currentEdge);
+                    }
                 }
             }
         }
 
-        //mstEdges.add(new Edge(64, 124, 933));
-//        if (mstEdges.size() < nodeCount) {
-//            for (int i = mstEdges.size(); i < mstEdges.size() + (2 * nodeCount); i++) {
-//                bfsReset();
-//                BFS(graphEdges.get(i).getVertex1());
-//                if (distance[graphEdges.get(i).getVertex2()] > graphEdges.get(i).getWeight()) {
-//                    mstEdges.add(graphEdges.get(i));
-//                    break;
-//                }
-//            }
-//        }
-
-//            for (Edge e : graphEdges) {
-//                dijkstraReset();
-//                dijkstra(e.getVertex1());
-//                if (distance[e.getVertex2()] != e.getWeight()) {
-//                    System.out.println("Wrong distance from " + e.getVertex1() + " to " + e.getVertex2() + " was " + e.getWeight() + " is now " + distance[e.getVertex2()]);
-//                }
-//            }
-
-//        dijkstraReset();
-//        dijkstra(1);
-//        System.out.println(distance[2]);
         if (mstEdges.size() == nodeCount - 1) {
-            mstEdges.add(graphEdges.get(mstEdges.size()));
+            mstEdges.add(possibleLastEdge);
         }
 
         for (Edge edge : mstEdges) {
@@ -104,43 +78,11 @@ public class Kruskal {
         return mstEdges;
     }
 
-    public void dijkstra(int start) {
-        //System.out.println("Dijkstra from: " + start);
-        PriorityQueue<Path> queue = new PriorityQueue<>();
-        distance[start] = 0;
-        queue.add(new Path(start, 0));
-        int nodesSeen = 0;
-
-        while (!queue.isEmpty() && nodesSeen < nodeCount) {
-            Path p = queue.remove();
-            nodesSeen++;
-            for (Edge edge : findEdgesFromVertex(p.getDest())) {
-                if (edge.getWeight() < 0) {
-                    return;
-                }
-
-                int destination;
-                if (p.getDest() == edge.getVertex1()) {
-                    destination = edge.getVertex2();
-                } else {
-                    destination = edge.getVertex1();
-                }
-                if (distance[destination] > distance[p.getDest()] + edge.getWeight() || distance[destination] == Double.MAX_VALUE) {
-                    distance[destination] = distance[p.getDest()] + edge.getWeight();
-                    queue.add(new Path(destination, distance[destination]));
-                }
-
-            }
-        }
-    }
-
-    private void dijkstraReset() {
-        for (int i = 0; i <= nodeCount; i++) {
-            distance[i] = (int) Double.MAX_VALUE;
-        }
-    }
-
     void BFS(int s) {
+        // Mark all the vertices as not visited(By default
+        // set as false)
+        boolean visited[] = new boolean[nodeCount + 1];
+
         // Create a queue for BFS
         LinkedList<Integer> queue = new LinkedList<>();
 
@@ -172,7 +114,6 @@ public class Kruskal {
     private void bfsReset() {
         for (int i = 0; i <= nodeCount; i++) {
             distance[i] = 0;
-            visited[i] = false;
         }
     }
 
@@ -192,16 +133,6 @@ public class Kruskal {
                 returnList.add(e.getVertex2());
             } else if (e.getVertex2() == vertex) {
                 returnList.add(e.getVertex1());
-            }
-        }
-        return returnList;
-    }
-
-    private List<Edge> findEdgesFromVertex(int vertex) {
-        List<Edge> returnList = new ArrayList<>();
-        for (Edge e : mstEdges) {
-            if (e.getVertex1() == vertex || e.getVertex2() == vertex) {
-                returnList.add(e);
             }
         }
         return returnList;
