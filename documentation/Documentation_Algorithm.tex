@@ -159,6 +159,7 @@ In this section we will give an analysis of the complex of the alorithm. We will
 The input is being imported from the \textbf{stdin}. A scanner scans the lines till they reach the value of the city to itself and skips the rest of the line. In this way only the bottom of the matrix is read. Since the number of constellations is one number this is a constrant the detailed complexity of the importing of the data is $\bigO{\frac{1}{2}n^2 - \frac{1}{2}n + 1}$. Since the first part depends on $n^2$ the complexity of the importing process is $\bigO{n^2}$.
 
 \subsubsection{Building the MST}
+We use Kruskals algorithm to build our Minimum Spanning tree. The time complexity for this build step is: $\bigO{ElogE}$ or $\bigO{ElogV}$. Sorting of edges takes $\bigO{ELogE}$ time. After sorting, we iterate through all edges and apply find-union algorithm. The find and union operations can take at most $\bigO{LogV}$ time. So overall complexity is $\bigO{ELogE + ELogV}$ time. The value of E can be atmost $\bigO{V2}$, so $\bigO{LogV}$ are $\bigO{LogE}$ same. Therefore, overall time complexity is $\bigO{ElogE}$ or $\bigO{ElogV}$
 
 \subsubsection{Fixing the last edge}
 The fixup step first saves the next edge in the list for the case it doesn't matter which edge we add. Then it checks whether there was a minimum-weight edge cycle. If so, then it adds this edge. Both operations take $\bigO{1}$, since there is only there is only one check being performed and if it's true an operation that's only performed once.
